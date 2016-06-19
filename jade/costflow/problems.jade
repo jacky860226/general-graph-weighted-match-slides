@@ -1,0 +1,20 @@
+
+section
+  +slide
+    h1 最小花費最大流的一些例題
+
+  +slide
+    p 很多最大流的題目都可以推擴成花費流。
+
+    +problem({name: '二分圖帶權匹配'}).
+      給你一個邊有權值的二分圖，求他的一個最大權值匹配。
+
+  +slide
+    +problem({name: 'Machine Programming', src: 'Codeforces 164C',
+      url: 'http://codeforces.com/problemset/problem/164/C'}).
+      你有 \( n \) 個工作可以分配給 \( k \) 個機器人，每個工作只能給一個機器人做，
+      而且第 \( i \) 個工作必須從第 \( s_i \) 天做到 \( s_i + t_i - 1 \) 天，不能中斷，做完
+      了這個工作可以得到 \( c_i \) 元。 問你最多可以賺到多少錢？
+
+    .blackboard
+

@@ -1,0 +1,41 @@
+section
+  +slide
+    h1 二分圖
+
+  +mdslide
+    | ## 二分圖的定義
+
+    | 可以分成兩團 \\( A, B \\) 的圖。  
+    | 同在一團的兩個點 \\( u, v \\) 沒有邊。
+
+    p.fragment 也可以說是能黑白染色的圖。
+
+  +mdslide
+    | ### 判斷一個圖是不是二分圖
+    | 
+    | 黑白染色。
+    |  
+
+    .fragment
+      +problem({name: '平面圖的最大團'}).
+        現在有一個未知的序列 \\( a\_1, a\_2, \dots, a\_n \\)，依序給你資訊 \\( (s, t, p) \\)，
+        其中 \\( p \in \{0, 1\} \\) 代表 \\( a\_s + a\_{s+1} + \dots + a\_t \equiv p \pmod{2} \\)，  
+        每次你要判斷給你的資訊會不會和已知的資訊有所矛盾，並且如果有矛盾則捨棄之。
+
+    aside.notes.
+      先說明題意，並舉個矛盾的例子。
+
+  +mdslide
+    p.fragment 令 \\( b_i = \sum a_i \\) ，題目等於跟你講 \\( b_i, b_j \\) 是否同奇偶。
+    
+    p.fragment 你跟我一樣 \\( \implies \\) 併查集
+     
+    p.fragment 不一樣呢？
+    .blackboard
+
+    aside.notes
+      ul
+        li 做前綴和。 sum(a_i) = b_j - b_i
+        li 先考慮同奇偶。
+        li 不同奇偶，多一個點。
+

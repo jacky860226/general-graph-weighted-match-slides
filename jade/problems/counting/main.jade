@@ -1,0 +1,56 @@
+
+section
+  +slide
+    h2 Counting
+    | 有時候會出現各種計算問題。
+
+  +slide 
+    +problem({name: "經典問題"}).
+      問 \( n \) 個有編號的點可以形成多少種不同的樹。
+    .blackboard
+
+  +slide
+    h3 Prüfer sequence
+
+    img(width="35%" src="img/latex/prufer.svg")
+
+    aside.notes
+      ul
+        li 1 2 1 2 6
+        li 最後一定是最大的數。
+
+  +slide 
+    +problem({name: "Connect Graph", src: "POJ 1737",
+      url: "http://poj.org/problem?id=1737"}).
+      問 \( n \) 個有編號的點可以形成多少種不同的連通圖。
+    .blackboard
+
+    aside.notes
+      ul
+        li 用扣的
+        li 慢慢 DP
+        li 第一個點的連通塊
+        li A[n] = 2^C(E, 2) - sum A[k] C(v, k-1) 2^C(v-k-1, 2)
+
+  +slide 
+    +problem({name: "經典問題"}).
+      問一張圖上有多少個三角形。
+    .blackboard
+
+    aside.notes
+      ul
+        li V^3 
+        li 枚舉 E 
+        li 合併起來 E Sqrt(E) 
+
+  +slide 
+    +problem({name: "經典問題"}).
+      在一個完全圖上，所有的邊被塗上黑、白兩種顏色，問你有多少個同色三角形。
+      \( \abs{V} \leq 5000 \)
+    .blackboard
+
+    aside.notes
+      ul
+        li 用扣的
+
+  

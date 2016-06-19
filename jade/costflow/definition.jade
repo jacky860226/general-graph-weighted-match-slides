@@ -1,0 +1,83 @@
+
+section
+  +slide
+    h1 Definition
+
+  +slide
+    h2 最小花費最大流的定義
+
+    p.fragment 和最大流時一樣，我們要求一個流量最大的流。
+    p.fragment 但現在每個邊除了有流量上限以外，還有一個價格 \( k(u, v) \)，
+     | 表示每單位流過要付多少錢。
+    p.fragment 最後總花費是
+      | \[ k(f) = \sum_{f(u, v) > 0} k(u, v) \cdot f(u, v) \]
+
+  +slide
+    p.fragment 如何修改前面的使得可以找一個最小花費的最大流？
+    p.fragment 我們先想剩餘網路要怎麼做修改。
+    p.fragment 流量應該不變。
+    p.fragment 那剩餘網路的花費 \( k_{f} (u, v) \) 如何設？
+
+  +slide
+    p 如果在原圖有一條有向邊 \( u \to v \) ， Cost 為 \( k(u, v) \)。
+    ul
+      li.fragment 順流： 在剩餘網路上流一單位，表示在原來的流上增加一單位。
+        | \[ \implies k_f(u, v) = k(u, v) \]
+      li.fragment 逆流： 在剩餘網路上反著流一單位，表示在原來的流上減少一單位。
+        | \[ \implies k_f(v, u) = -k(v, u) \]
+
+    +n.
+      k_f 是剩餘圖上的邊， k 是原來圖上的，不要搞混
+
+  +slide
+    +theorem({name: ''})
+      | 一個最大流 \( f \) 是一個最小花費最大流若且唯若其剩餘網路上沒有
+      b 負環
+      | ，也就是花費為負的環。
+    .blackboard
+
+    +n.
+      一個負環就是花費總合是負的。  
+      有負環，加上去，更小！
+
+  +slide
+    +theorem({name: ''}).
+      如果在剩餘網路上沒有負環，現在我們找一個花費最小的路徑擴充，則擴充後
+      剩餘網路上還是不會有負環。
+    .blackboard
+
+    +n.
+      * 有負環一定是 u1 -> u2 -> u3
+      * 本來沒有所以大概是 u2 -> u1 擴充
+      * 原本的 xor 環，更短。
+
+  +slide
+    p 由這兩個引理我們可以知道只要每次都找最短路擴充，直到最大流即可。
+    p.fragment 只是現在「最短路」並非邊數最少的路徑，而是花費總合最少的路徑！ 
+
+  +slide
+    img.x2.space-right(src='img/costflow/f1-0.svg')
+    img(width="41%" src='img/costflow/f1-1.svg')
+
+    +n.
+      綠色是 cost
+
+  +slide
+    h3 Psuedo Code
+    pre
+      code.cpp.
+        int f = 0
+        while (tf = find_mincost_path()) {
+            f += tf;
+        }
+        return f;
+
+  +slide
+    h2 Finding min-cost path
+    p 可以用任何能處理負邊的演算法，如 SPFA。
+    p 總複雜度是 \( \ord{SP \cdot \abs{f}} \)。
+
+    +n.
+      把一個機器人的工作歷程想做是一個流。
+
+

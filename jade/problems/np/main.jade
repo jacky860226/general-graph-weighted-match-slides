@@ -1,0 +1,41 @@
+
+section
+  +slide
+    h2 Complexity classes
+
+    p 我們都希望所有問題都可以在 Polynomial time 完成。
+    p.fragment 事與願違，有些問題一直找不到多項式演算法，又證不了不存在。
+    p.fragment 假設我們有個超強的電腦。
+
+  +slide
+    h2 Nondeterministic Turing machine
+
+    p 幸運值 Max, 永遠選到最快到終點的一條搜索路徑。
+    p.fragment 普通電腦多項式可以解的就叫 P, Nondeterministic Turing
+      | machine 可以在多項式解的就叫 NP
+    p.fragment NP = P ?
+
+  +slide
+    h2 NPC
+
+    p NP 裡最難的一些問題就叫做 NPC
+    p.fragment 如果這些問題在 P ，所有 NP 問題都在 P， P = NP
+    .blackboard
+
+    aside.notes.
+      可以畫 P NP NPC NP-Hard GI BQP
+
+  +slide
+    h2 Cook-Levin Theorem
+    +theorem({name: "Cook-Levin Theorem"}).
+      SAT \( \in \) NPC。
+
+  +slide 
+    +problem({name: "經典問題"})
+      p 證明
+      ul
+        li 3-SAT \( \in \) NPC
+        li 3-color \( \in \) NPC
+
+    .blackboard
+

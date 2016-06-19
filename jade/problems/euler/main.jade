@@ -1,0 +1,72 @@
+
+section
+  +slide
+    h2 Euler path
+    
+    | 一筆畫走完整張圖。
+
+  +slide
+    h3 Example
+
+    img(width="60%" src="img/latex/euler.svg")
+
+  +slide
+    h3 有解的條件
+
+    p 觀察一個路徑 \( v_1 \to v_2 \to \cdots \to v_n \)
+    p 每一個中間走到的點 \( +2 \) ，兩端 \( +1 \)。
+
+    aside.notes.
+      度數奇偶是關鍵
+
+  +slide 
+    +theorem({name: "Euler Path 的存在條件"})
+      | 定義一個 <b> 奇點 </b> 是度數為奇數的點。如果圖連通，有
+      ul
+        li.fragment 一個無向圖有歐拉路徑的條件是其奇點的個數是 \( 0 \) 或 \( 2 \)。
+        li.fragment 一個無向圖有歐拉迴路的條件是其奇點的個數是 \( 0 \)。
+        li.fragment 一個有向圖有歐拉路徑的條件是所有點都滿足 \( \deg^+(v) = \deg^-(v) \)， <br/>
+          | 或是除此之外有一個點滿足 \( \deg^+(v) = \deg^-(v) + 1 \)，<br/>
+          | 另一個滿足 \( \deg^+(v) = \deg^-(v) - 1 \)。
+        li.fragment 一個有向圖有歐拉迴路的條件是所有點都滿足 \( \deg^+(v) = \deg^-(v) \)，
+
+    .blackboard
+
+  +mdslide.
+    ## Algorithm
+    ```
+    vector<int> ans;
+    void dfs(int v) {
+        for (e: adj[v]) {
+            if (not e.visit) {
+                dfs(e.dest);
+            }
+        }
+        ans.push_back(v);
+    }
+    ```
+
+  +slide 
+    +problem({name: "POI 某題"}).
+      給你一個圖，每個邊都有 \( 0, 1 \) 的值，你走過一個邊就會讓
+      \( 0, 1 \) 互換，給你各個邊的起始值和目標值，問你存不存在這
+      樣子的一個走法。
+
+    .blackboard
+
+    aside.notes
+      ul
+        li 把原始的邊和目標的邊做 Xor
+        li 小心連通的陷井。
+
+  +mdslide
+    h2 Hamiltonian path
+    p.fragment 一條路徑走過所有的點恰好一次。
+    img.fragment(width="30%" src="img/hamilton.png")
+
+  +slide
+    p.fragment NPC Problem。
+    p.fragment 通常的做法是狀態壓縮 DP， \( \ord{2^n n^2} \)
+
+
+  

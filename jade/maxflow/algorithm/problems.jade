@@ -1,0 +1,177 @@
+
+section
+  +slide
+    h1 最大流的一些例題
+
+  +slide
+    +problem({name: 'Internet Bandwidth', src:'UVa 820', 
+      url:'https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=761'}).
+      現在有一些機器可以互相傳訊，但兩個機器 \( u, v \) 間會有一個
+      傳訊的頻寬上限 \( c(u, v) \) ，問你從機器 \( s \) 傳訊到 \( t \) 的
+      最大頻寬是多少？
+
+    p.fragment 裸的最大流，BJ4
+
+  +slide
+    +problem({name: '不重複的路徑數'})
+      | 給你一張圖 \( G \) ，請找出最多的 \( u \) 到 \( v \) 的路徑，
+      | 使得在這些路徑沒有重複的邊。
+
+    .blackboard
+
+    +n.
+      把一條路徑想成是一條流
+
+  +slide
+    h2 一些常見的建模技巧
+
+    ul
+      li.fragment 點容量限制
+      li.fragment 多個 \( s, t \)。
+      li.fragment 無限的容量。
+
+    .blackboard
+
+    +n.
+      * 點容量 => 拆成 v v'
+      * 多st => 加 ss tt
+      * infty => 用很大的數字
+
+  +slide
+    h2 二分圖匹配
+    +problem({name: '二分圖匹配'})
+      | 給你一個二分圖，求他最大的一個匹配
+
+    p.fragment 我們先說一下定義
+    ul
+      li.fragment 二分圖
+      li.fragment 匹配
+
+    +n.
+      * 可以分成兩團的圖
+      * 選一些不相交的邊
+
+  +slide
+    h2 應用
+
+    p 二分圖匹配有不少應用
+    ul
+      li.fragment 分配任務
+      li.fragment 分發志願序
+      li.fragment 決定動漫結局
+
+    +n.
+      * IOI 講師每個人想教哪些，一個課至多一個人
+      * 每個人填志願
+
+  +slide
+    img(src="img/m1.jpg")
+    +n.
+      * 某部動畫  
+      * 線就是 x 喜歡 y
+      * 是二分圖 男/女
+      * 有同性xx 會變一般圖 難做
+      * 求他的一個最大匹配
+
+  +slide
+    img(src="img/m2.jpg")
+    
+  +slide
+    h3 二分圖轉 Flow
+    img.x2(src="img/flowprob/f1.svg")
+
+    +n.
+      * 上面的人全接一條 s -> u
+      * 下面的人全接一條 u -> t
+      * 用 s-u u-t 容量 1 來限制
+    
+  +slide
+    +problem({name: 'Soldier and Traveling', src: 'Codeforces 546 E', 
+      url: 'http://codeforces.com/problemset/problem/546/E'})
+        | 給你一張圖 \( G = (V, E) \)，每一點一開始分別有 \( a_i \) 個士兵。
+        | 現在你希望一天後每個點分別有 \( b_i \) 個士兵，但每個士兵
+        | 只能留在原地或是到相鄰的點，問你可不可能？
+
+    .blackboard
+
+    +n.
+      * 把每一個人想做是一單位的流
+      * 一個點可以補幾單位到附進的點？
+
+  +slide
+    +problem({name: '無向圖的歐拉回路'})
+      | 給你一張混合圖 \( G = (V, E) \)，也就是同時有有向邊和無向邊的圖。
+      | 問你存不存在一條歐拉回路？
+
+    +n.
+      * 講混合圖定義
+
+  +slide
+    h2 Euler path
+    
+    | 一筆畫走完整張圖。
+
+  +slide
+    h3 Example
+
+    img(width="60%" src="img/euler.svg")
+
+  +slide
+    h3 有解的條件
+
+    p 觀察一個路徑 \( v_1 \to v_2 \to \cdots \to v_n \)
+    p 每一個中間走到的點 \( +2 \) ，兩端 \( +1 \)。
+
+    aside.notes.
+      度數奇偶是關鍵
+
+  +slide 
+    +theorem({name: "Euler Path 的存在條件"})
+      | 定義一個 <b> 奇點 </b> 是度數為奇數的點。如果圖連通，有
+      ul
+        li.fragment 一個無向圖有歐拉路徑的條件是其奇點的個數是 \( 0 \) 或 \( 2 \)。
+        li.fragment 一個無向圖有歐拉迴路的條件是其奇點的個數是 \( 0 \)。
+        li.fragment 一個有向圖有歐拉路徑的條件是所有點都滿足 \( \deg^+(v) = \deg^-(v) \)， <br/>
+          | 或是除此之外有一個點滿足 \( \deg^+(v) = \deg^-(v) + 1 \)，<br/>
+          | 另一個滿足 \( \deg^+(v) = \deg^-(v) - 1 \)。
+        li.fragment 一個有向圖有歐拉迴路的條件是所有點都滿足 \( \deg^+(v) = \deg^-(v) \)，
+
+    .blackboard
+
+  +slide
+    h3 重點
+    p.fragment 一個有向圖有歐拉迴路的條件是所有點都滿足 \( \deg^+(v) = \deg^-(v) \)，
+    p.fragment 混合圖呢？
+
+    +n.
+      進來 = 出去，合理。
+
+  +slide
+    h3 觀察
+    p.fragment 其實就是要把每一個無向邊都定向成有向圖
+    p.fragment 最後要求每一個點的 \( \deg^+(v) = \deg^-(v) \)。
+    .blackboard
+
+    +n.
+      * 一個無向邊最後只會走某一個方向
+
+  +slide
+    p.fragment 令還沒有算無向邊時 \( \delta(v) = \deg^-(v) - \deg^+(v) \)。
+    p.fragment 如果我們把一個邊定成 \( u \to v \) 後， 
+      | \( \delta(u) \gets \delta(u) - 1, \delta(v) \gets \delta(v) + 1 \)。
+    p.fragment 可以想作一單位的 $\delta$ 從 \( u \) 流到了 \( v \)。
+    .blackboard
+
+    +n.
+      目標： delta(v) = 0
+
+  +slide
+    p.fragment 對於那些 \( \delta(v) > 0 \) 的，也就是需要流出 \( \delta(v) \)
+      | 的，我們就建 \( s \to v \)。
+    p.fragment 對於那些 \( \delta(v) < 0 \) 的，同理建 \( v \to t \)。
+    p.fragment 可以補好補滿 \( \iff \abs{f} = \sum_{\delta(v) > 0} \delta(v) \)
+    .blackboard
+
+    +n.
+      * 要吐流量出來的，就塞一堆水給他。
+

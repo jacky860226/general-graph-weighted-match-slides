@@ -1,0 +1,90 @@
+
+section
+  +slide
+    h2 Want
+
+    p 流量最大的一個流，也就是最大流！
+
+  +slide
+    h3 想法
+    p 一點一點慢慢增加流量
+
+    +n.
+      增加容量，找「有空的水管」，有空就是還有多的容量  
+      找到後應該可以增加一點
+
+  +slide
+    img.x2.space-right(src="img/latex/flow1-0.svg")
+    img.fragment(width="40%" src="img/latex/flow1-1.svg")
+
+    +n 這是一開始的狀況，把所有可以流的抓出來
+
+  +slide
+    p 問：可以增加多少流量？
+    img(width="80%" src="img/latex/flow1-2.svg")
+    img.fragment(width="80%" src="img/latex/flow1-3.svg")
+
+    +n 瓶頸會是最小的一條！
+
+  +slide
+    img.x2.space-right(src="img/latex/flow2-0.svg")
+    img.fragment(width="40%" src="img/latex/flow2-1.svg")
+
+    +n 圖上那條不見了.
+
+  +slide
+    p 直到有一天流不了。
+    img.x2.space-right(src="img/latex/flow3-0.svg")
+    img.fragment(width="40%" src="img/latex/flow3-1.svg")
+
+    +n s 走不到 t
+
+  +slide
+    p Question: 這樣是否就是一個最大流？
+    p.fragment Answer: No!
+
+  +slide
+    img.x3.space-right(src="img/latex/flowzz-0.svg")
+    img.x3.fragment.space-right(src="img/latex/flowzz-1.svg")
+    img.x3.fragment(src="img/latex/flowzz-2.svg")
+
+    +n.
+      很簡單的反例, 最大流 2
+      綠色是流的邊，這些都不能再流了。
+
+  +slide
+    h3 再仔細觀察！
+
+    p 還記得
+      br
+      | 流量對稱 : 
+      | \( f(u, v) = -f(v, u), \; \forall (u, v)\)
+
+    +n.
+      其實快對了，一直沒有用到這個條件。
+
+  +slide
+    img.x2.vertmid.space-right(src="img/latex/flowrev-0.svg")
+    img.x2.vertmid.fragment(src="img/latex/flowrev-1.svg")
+    
+    p.fragment \( -3 < 0 \) ，可以流過去！
+
+    +n.
+      * 流 3 過去 ，就是流 -3 回來。
+      * 只有正向有邊，可以像作 0 流量上限
+      * 可以流！因為 -3 < 0
+
+  +slide
+    img.vertmid.space-right(width="24%" src="img/latex/flowhao-0.svg")
+    span.vertmid.space-right \(+\)
+    img.vertmid.fragment.space-right(width="24%" src="img/latex/flowhao-1.svg")
+    span.vertmid.space-right \(=\)
+    img.vertmid.fragment(width="24%" src="img/latex/flowhao-2.svg")
+
+    +n 多了中間的邊
+
+  +slide
+    p Question: 考慮負向邊之後，是否就是一個最大流？
+    p.fragment Answer: Yes!
+
+    +n 沒騙你！

@@ -1,0 +1,65 @@
++mdslide
+  | ## 樹分治  
+  |  
+
+  +problem({name: 'Tree', src: '男人八題', 
+    url: 'http://poj.org/problem?id=1741'})
+    |給一棵樹，樹的邊有權重表示距離，求距離不超過 \\( k \\) 的點對數。
+    |\\( \abs{V} \leq 10^4 \\)
+
+  .blackboard
+
+  aside.notes
+    ul
+      li 先講解一下題目。
+      li 這種跟路徑有關的問題通常有兩種做法，
+        | 一種是直接枚舉兩個端點。TLE。
+        | 一種是枚舉 LCS (或說路徑上一點)。
+      li 先說一下這題枚舉 LCS 大致作法。
+      li 用普通分治解說一下複雜度，說明最大的子樹不能太大。
+
++mdslide
+  +theorem({name: '樹的重心'}).
+    任一棵樹一定存在這麼樣的一個點，拔掉他以後所有的子樹大小都不超過 \\( \ceil{V / 2} \\)。
+  .blackboard
+
+  aside.notes.
+    挑到各點距離和最小的點就是
+
++mdslide
+  pre
+    code.
+      int dfs(int v) {
+          int total = 0, biggest = 0;
+          for (u: adj[v]) {
+              int t = dfs(u);
+              biggest = max(biggest, t);
+              total += t;
+          }
+          biggest = max(biggest, V - total - 1);
+          return total + 1;
+      }
+
+  aside.notes.
+    遞迴下去取 max ，別忘了最外面那一坨。
+
++mdslide
+  | ### Time complexity
+  |   
+  | \\[ T(n) = \sum T(n_i) + f(n) \\]
+  |  
+  | \\[ T(n) \approx f(n) \log n \\]
+
+  aside.notes.
+    注意這個結論不完全正確。
+
+
++mdslide
+  | ### 回到原來那一題
+  | 
+  p.fragment 重點: 如何合併
+
+  .blackboard
+
+  aside.notes.
+    基本上「樹分治」是一個架構，題目的重點在於怎麼合併

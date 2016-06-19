@@ -1,0 +1,92 @@
+
+section
+  +slide
+    h1 Definition
+
+  +slide
+    h2 割的定義
+    +theorem({name: ''})
+      | 一個 
+      b s-t cut 
+      | \( C \) 是一個圖的分割，將圖中的點分成兩個集合 \( C = (S, T) \)，
+      | 滿足 \( s \in S, \; t \in T \)。我們定義這個割的大小為
+      br
+      br
+      | \[ \abs{C} = \sum_{u \in S} \sum_{v \in T} c(u, v). \]
+      br
+      | 也就是所有滿足 \( u \) 在 \( S \)，\( v \) 在 \( T \) 的邊 \( (u, v) \) 的流量上限和。
+      br
+      | (並不計算 \( u \) 在 \( T \) ， \( v \) 在 \( S \) 的邊。)
+      br
+      | 一個 
+      b  最小割
+      |  就是最小的一個割。
+
+    +n.
+      重點
+      * s \in S, t \in T
+      * 算 S->T 的流量合
+      * 不算 T -> S
+
+  +slide
+    p 而最大流的對偶問題正是最小割。
+
+  +slide
+    h3 Example
+
+    img.x2.space-right(src="img/mincut/f1-0.svg")
+    img(width="43.2%" src="img/mincut/f1-1.svg")
+
+    +n.
+      他們大小相同  
+      注意到有多組解,
+      3, 1 換 v5->t 也行
+
+  +slide
+    +theorem({name: "Max-flow min-cut theorem"})
+      | 對一個流量網路 $G$，以下三件事情是等價的。
+      ul
+        li \( f \) 是一個 s-t 最大流。
+        li 關於 \( f \) 的剩餘網路 \( G_f \) 沒有從 \( s \) 到 \( t \) 的擴充路徑。
+        li \( \abs{f} = \abs{C} \)，其中 \( C \) 是最小 s-t 割。
+
+    p (1) \( \implies \) (2) 前面講過。
+
+    +n.
+      如果有路徑 可以增加流量。反方向沒有證
+
+  +slide
+    h3 截流引理
+    +theorem({name: ''})
+      | 對於一個流量 \( f \)，定義一個 s-t cut \( (S, T) \) 的截流為
+      br
+      br
+      | \[ \abs{f(S, T)} = \sum_{u \in S, v \in T} f(u, v) \]
+      br
+      | 則 \( \abs{f(S, T)} = \abs{f} \) 。
+    .blackboard
+
+    +n.
+      * 想像電流，各截面相同。
+      * 證明：一個一個點加進去。
+
+  +slide
+    h3 (2) \( \implies \) (3)
+    p.fragment 找所有在剩餘網路上， \( s \) 連的到的點，令其為 \( S \)，
+      | 其他點就是 \( T \)。
+    p.fragment \( t \) 不在 \(S\) 中。
+    p.fragment 這個 cut 上的邊都要流滿，否則有路徑。
+    p.fragment \( C \leq \abs{f} \)
+    .blackboard
+
+  +slide
+    p.fragment 由截流知 \( \abs{f} \leq C \)
+    p.fragment \( \abs{f} = C \)
+    p.fragment (3) \( \implies \) (1) 也證完了。
+
+  +slide
+    h2 Find a min-cut
+    p 這個引理也告訴了我們，找所有在剩餘網路上， \( s \) 連的到的點，令其為 \( S \)，
+      | 其他點就為 \( T \)，就恰好是一個 s-t cut。
+
+

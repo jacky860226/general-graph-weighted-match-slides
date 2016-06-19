@@ -1,0 +1,48 @@
+
+section
+  +slide
+    h2 Edmonds-Karp Algorithm
+
+    pre
+      code(data-noescape).cpp.
+        int f = 0
+        while (tf = find_<span class="fragment highlight-red">shortest</span>_path()) {
+            f += tf;
+        }
+        return f;
+
+    p 有差嗎？
+
+  +slide
+    p 只差在 Edmonds-Karp 每次規定找最短的一條擴充路徑。
+    p.fragment 差多少呢？
+    p.fragment 差非常多！ 複雜度變成 \( \ord{V E^2} \)
+      br
+      | 不但跟流量大小無關，無理數也會 work ！
+
+  +slide
+    h3 Proof
+    +theorem({name: ''})
+      | 令 \( d(u) \) 表示 \( s \leadsto u \) 的最短距離，
+      br
+      | 則 \( s \) 到每個點的距離只會越來越遠，也就是 \( d(u) \) 遞增。
+    .blackboard
+
+    +n.
+      本來 s -> u 的邊慢慢不見變 u -> s，合理
+
+      * u 變小，表示 u -> v 擴充 才會讓這邊出來
+      * 假設 d(u) 3 -> 2 , d(v) 4 -> 1
+
+  +slide
+    h3 Proof
+    +theorem({name: ''})
+      ul
+        li 一次擴充一定會讓一條邊消失在剩餘網路裡。
+        li 每個邊可能會消失/回到剩餘網路裡，但至多 \( V/2 \) 次。
+    .blackboard
+
+    +n.
+      * 廢到有剩的那條  
+      * 因為 u -> v , d(u) = 2, d(v) = 3, u <- v, d(u) = 4, +2
+    

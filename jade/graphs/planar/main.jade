@@ -1,0 +1,79 @@
+section
+  +slide
+    h1 平面圖
+
+  +mdslide.
+    ## 平面圖的定義
+
+    存在一個畫在平面的方法使得  
+    任兩條邊至多只在頂點相交。
+
+  +mdslide
+    | 比如正八面體是平面圖。  
+    | 但 \\( K_{3, 3} \\) 不是。
+
+    .blackboard
+
+    aside.notes
+      ul
+        li 畫正八面體，不是立體的嗎？
+        li 所有多面體都是平面圖，投影。
+        li K33 常見的題目，井接水管。
+
+  +mdslide
+    +problem({name: '平面圖的最大團'}).
+      給你一個平面圖，求他最大團的大小。 \\( \abs{V} \leq 2 \cdot 10^5 \\)
+
+    br
+    | 在解這題之前，我們先看一些平面圖的性質
+
+    aside.notes.
+      最大團就是最大的一個完全子圖。
+
+  +mdslide
+    | ### 性質一： 邊很少
+    |  
+
+    +theorem({name: '歐拉定理'}).
+      對一個平面圖，\\( \abs{E} = \abs{V} + \abs{F} - 2 \\)
+
+    br
+
+    +theorem({name: ''})
+      p 對一個平面圖
+      ul
+        li \\( \abs{E} \leq 3\abs{V} - 6 \\)
+        li 一定有一個點的度數不超過 \\( 5 \\)
+
+    aside.notes
+      ul
+        li 說明「面」
+        li 證明 th2， 3F < 2E。
+        li 平均概念說明 th3.
+
+  +mdslide
+    p.fragment 每次都找度數最小的那個點。
+    p.fragment 枚舉完這個點就拔掉。
+    p.fragment 拔了這個點之後還是一個平面圖。
+
+    aside.notes.
+      如果一個點度數少，可以直接枚舉他的鄰居。
+
+
+  +mdslide
+    | ### 性質二： Forbidden Graph
+    |  
+
+    +theorem({name: '平面圖的 Forbidden graph'}).
+      平面圖沒有 \\( K\_5 \\) 和 \\( K\_{3,3} \\)。
+
+    img.fragment(style="width: 30%; margin-right: 5%; vertical-align: middle;", src="img/latex/K5.svg")
+    img.fragment(style="width: 30%; vertical-align: middle;", src="img/latex/K33.svg")
+
+    aside.notes
+      ul
+        li K5 證明 => 歐拉。
+        li K3,3 證明 => 沒有 3 環。
+
+
+

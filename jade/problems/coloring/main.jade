@@ -1,0 +1,70 @@
+
+section
+  +slide
+    h2 Coloring
+
+    ul 
+      li 點塗色：把每個點塗一個顏色，
+        br
+        | 使得任兩個相鄰的點都不同色。
+      li.fragment 邊塗色：把每個邊塗一個顏色，  
+        br
+        | 使得一個點出去的邊都不同色。
+    
+    p.fragment 都是 NPC Problem
+
+  +slide
+    h2 點著色
+
+    +problem({name: "K Graph Oddity", src:"uva 4488", 
+    url:"https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=4488"})
+      |給你一個連通圖 \( G \) 滿足 \( G \) 有
+      span.fragment.highlight-red 奇數
+      |個點，且存在一個
+      span.fragment.highlight-red 奇數
+      |\( k \) 使得所有點的度數都
+      |不超過 \( k \)。請你把這張圖點 \( k \) 著色。 \( \abs{V} \leq 9999, \abs{E} \leq 10^5 \)
+
+    .blackboard
+
+    aside.notes
+      ul
+        li deg k 的圖一定可以用 k+1 個顏色塗。
+        li 幾乎已經對了，可能是完全圖嗎？
+        li 跟平面圖那題很像！
+
+  +slide 
+    h2 邊著色
+    +theorem({name: "Vizing's theorem"})
+      | 任意一個簡單圖的邊著色數一定是 \( d, d+1 \) 中的一個， <br/>
+      | 其中 \( d = \max\limits_{v \in V} \deg(v) \)。
+
+    .blackboard
+
+    aside.notes
+      ul
+        li deg k 的圖一定可以用 k+1 個顏色塗。
+        li 邊就沒有那麼顯然了。
+        li 概念複雜，我們用下面這個題目介紹。
+
+  +slide
+    +problem({name: 'Edge coloring of bipartite graph',
+      src: 'Codeforces 600F', url: 'http://codeforces.com/problemset/problem/600/F'}).
+      給你一個二分圖，用最小的顏色將他邊著色。 \( \abs{V} \leq 2000, \abs{E} \leq 10^5 \)
+    
+  +slide
+
+    p.fragment 答案是 \( d \).
+    p.fragment 一個邊一個邊加上去。
+
+    .blackboard
+
+    aside.notes
+      ul
+        li 如果兩個人有共同缺的顏色 -> easy.
+        li 如果沒有 設 x, y 塗 x
+        li 另一個點出去 x 邊改 y
+        li 另一個點出去 y 邊改 x ...
+        li 只會回到原來的點 or 可以塗。
+
+  

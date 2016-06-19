@@ -1,0 +1,61 @@
++mdslide
+  | ## 樹的子樹區間
+  | 先看一個題目
+
+  +problem({name: '學姊日談'})
+    div 給你一棵樹，你要支援兩種操作 
+      br
+      ul
+        li 
+          code add v x
+          | : 把一個點的權重加 
+          code x
+        li 
+          code query v
+          | : 問一個點到根上所有點的權重和
+
+  aside.notes.
+    第一個是樹的子樹區間，我們先看一個例題。
+
+
++mdslide
+  p 先觀察一下！
+
+  .blackboard
+
+  aside.notes.
+    有些人可能一劈頭就樹鍊剖分下去，
+    先觀察可能有更簡潔的作法。說明這個題目就只是子樹
+    修改而已。
+
++mdslide
+  p 重點就是如何把一棵樹壓平
+
+  aside.notes.
+    不只要把一棵樹序列化，還希望一個子樹就對應到一個區間。
+
++slide
+  h3 把樹壓平
+
+  pre
+    code.
+      int time_stamp = 0;
+      void dfs(int u) {
+        start[u] = time_stamp;
+        for (v: adj[u]) {
+          dfs(v);
+        }
+        end[u] = ++time_stamp;
+      }
+
+  aside.notes.
+    這邊就直接說結論，只要在 DFS 時把進入/離開節點的時間
+    記下來，就是一個合理的區間序列！
+    帶過一次 Code，說明區間是開的。
+
++mdslide
+  |### Example
+  |![](img/latex/tree_interv.svg)
+
+  aside.notes.
+    這邊用閉區間，可以用開區間畫過一次。

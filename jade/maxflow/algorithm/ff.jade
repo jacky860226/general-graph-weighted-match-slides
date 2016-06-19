@@ -1,0 +1,49 @@
+
+section
+  +slide
+    h2 Ford-Fulkerson Algorithm
+
+    pre
+      code.cpp.
+        int f = 0
+        while (tf = find_path()) {
+            f += tf;
+        }
+        return f;
+
+    +n.
+      看起來很簡單  
+      重點是如何 find_path
+
+  +slide
+    pre
+      code.cpp.
+        int find_path(int u = S, int curf = INF) {
+            if (u == T) return curf; // Done!
+
+            for (auto &e: E[u]) {
+                int v = e.dest, f = e.f, tf;
+                if (tf = find_path(v, min(curf, f))) {
+                   auto rev = e.rev;
+                   e.f -= tf; 
+                   ref.f += tf;
+                   return tf;
+                }
+            }
+            return 0;
+        }
+    +n.
+      要找反邊  
+      一加一減  
+      接下來的演算法都類似
+    
+  +slide
+    h2 複雜度
+
+    p.fragment 沒有保證！
+    p.fragment.
+      在流量是整數的時候，每次流量至少增加 \( 1 \)，  <br>
+      複雜度 \( \ord{E \abs{f}} \)。
+
+    +n.
+      剛剛那個反例就是最糟的情況

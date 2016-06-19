@@ -1,0 +1,56 @@
+
+section
+  +slide
+    h1 最小割的一些例題
+
+  +slide
+    +problem({name: 'Angry Programmer', src:'UVa 11506', 
+      url:'https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2501'}).
+        你被你老闆開除了，因此你決定在他打 LOL 的時候讓他斷線。
+        從他的電腦 \( s \) 到 LOL 伺服器 \( t \) 有一些 Router，Router 間有一些
+        網路線相連，剪掉 \( u \) 到 \( v \) 的網路線要花 \( c(u, v) \)，如
+        果 \( s \) 到 \( t \) 沒辦法經過一些 Router 連到就會斷線，問你要達成計畫
+        的最小花費。
+
+    p.fragment 裸的最小割，BJ4
+
+  +slide
+    h2 分兩類問題
+
+    p 先看個例題
+
+    +problem({name: '生產產品問題'}).
+      你有 \( n \) 個產品可以生產，並且有 \( m \) 種不同的機器，生產第 \( i \) 個產
+      品必須要有某一些等定的機器，但不同的產品如果用到相同的機器的話只需要一個
+      機器即可，現在給你每個機器的價格，和生產每個產品的獲利，你要決定
+      要生產哪些產品使你的獲利最高。
+
+  +slide
+    h2 分兩類問題
+    p 分成要買/不要買的機器，要生產/不要生產的產品。
+    p 把要的就分到 \( S \)，不要的就分到 \( T \)。
+    p 當然，還是要建模使得求出的答案即是題目要的。
+
+  +slide
+    h3 建模方法
+    ul
+      li.fragment 選 \( u \) 但不選 \( v \) 要花費 \( c \)。
+      li.fragment 選 \( u \) 就一定要選擇 \( v \)。
+      li.fragment 選 \( u \) 要花費 \( c \)。
+      li.fragment 選 \( u \) 會賺到 \( c \)。
+    .blackboard
+
+    +n.
+      1. u -> v (c)
+      1. u -> v (infty)
+      1. u -> t (c)
+      1. s -> u (c) ，就是不選 u 就虧，機會成本，最後再加回去。
+
+  +slide
+    p 回到那一題
+    .blackboard
+
+    +n.
+      * i 產品需 j 機器 , (i -> j) (infty)
+      * j 機器花費 (j -> t)
+      * i 產品賺 (s -> i)

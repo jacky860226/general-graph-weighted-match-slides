@@ -1,0 +1,89 @@
+
+section
+  +slide
+    h2 2-SAT
+
+    p 給你一個像以下的式子
+    | \[ (x_1 \lor \lnot x_2) \land (\lnot x_3 \lor \lnot x_1) \land (x_{4} \lor x_{3}) \]
+    | 是否有一種變數的 assign 方法使得這個式子結果為
+    code true
+    | ?
+
+    aside.notes.
+      比如 x_1, not x_3, x_4
+      說明一下符號，U = 多 倒U = 少
+
+  +slide 
+    h2 布林恆等式
+    p \[ A \lor B \iff \lnot A \rightarrow B \iff \lnot B \rightarrow A \]
+    p.fragment \[ A \to B, B \to C \quad \vdash \quad A \to C \]
+
+    aside.notes
+      | 先說一下布林恆等式。
+      br
+      ul 
+        li -> = 則
+        li A or B = 沒有 A 一定要 B ，舉個例子說明。
+
+  +slide 
+    +theorem({name: '2-SAT 的有解條件'})
+      | 2-SAT 有解若且唯若這些式子是一致的。
+
+    .blackboard
+    aside.notes
+      ul 
+        li 一致就是不會自相矛盾
+        li A -> not A 慘
+        li 舉一下剛剛的例子。
+
+  +slide 
+    h3 建模
+    div
+      span.vertmid.space-right.fragment \( x_1 \lor x_2 \)
+      img.vertmid.fragment(width="20%" src="img/latex/sat1.svg")
+    div
+      span.vertmid.space-right.fragment \( x_1 \lor x_1 \)
+      img.vertmid.fragment(width="20%" src="img/latex/sat2.svg")
+
+    aside.notes
+      x1 or x1 = x1 ，用恆等式解釋。
+
+
+  +slide 
+    p 也就是這些 \( \square \to \square \) 不能讓 \( x_i, \lnot x_i \)在同一個環
+    p.fragment SCC，用 tarjan 等等演算法 \( \ord{n} \)
+
+    aside.notes.
+      不知道 SCC 的叫他回去(誤)
+
+  +slide
+    +problem({name: 經典問題})
+      p 
+      | 給你一個 \( R \times C \) 的方格，你有一種特殊的炮彈可以炸一排或一列，
+      | 不過同一排或一列最多只能炸一次。每一格除了可能是空地外，還有可能是
+      ul
+        li 敵方要塞，你必須炸兩次才能消滅他。
+        li 敵方軍團，你必須炸一次以上才能消滅。
+        li 住宅區，為了必免無辜的人受害，最多只能炸一次。
+        li 醫院，這個不用說，當然是炸都不能炸。
+      p 問你每一排及每一列該選擇炸或是不炸，才能使每一格都符合上述的需求？ \( \ord{R+C+N} \)
+
+  +slide
+    p 怎麼轉成 2-SAT
+    .blackboard
+
+    aside.notes
+      ul
+        li x_i or x_i
+        li x_i or x_j
+        li not x_i or not x_j
+        li not x_i or not x_i
+
+  +slide
+    h2 3-SAT
+    p 雖然只差一點，但是個 NP 問題。
+
+    aside.notes.
+      現在可以解到幾萬。
+    
+  

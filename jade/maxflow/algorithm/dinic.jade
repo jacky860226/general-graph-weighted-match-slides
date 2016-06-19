@@ -1,0 +1,23 @@
+
+section
+  +slide
+    h2 Dinic's Algorithm
+
+    p Edmonds-Karp 的一個小優化。
+
+  +slide
+    p 每次擴充後其實只有一些點的 \( d(v) \) 會變。
+
+    p.fragment 一次把所有長度是 \( k \) 的擴充路徑都擴充完。
+
+  +slide
+    h3 Details
+    .blackboard
+
+    +n 畫分層圖
+
+  +slide
+    h3 複雜度
+    p 每次 \( \ord{k E} \)，總共 \( \ord{V^2 E} \)。
+
+    +n 一次 sum deg() 

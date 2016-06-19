@@ -1,0 +1,94 @@
+.reveal h2 {
+    font-size: 1.5em !important;
+}
+.reveal h3 {
+    font-size: 1.15em !important;
+}
+
+.reveal img {
+    border: medium none !important;
+    border-radius: 2pt !important;
+}
+.reveal .prob {
+    background-color: #382828;
+    text-align: left;
+    margin: 10px auto;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: 32px;
+}
+
+.reveal .prob hr {
+    margin: 8px 0;
+}
+
+.reveal .prob > a {
+    font-size: 70%;
+}
+
+.reveal .prob > .label {
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 28px;
+    padding: 2px 3px;
+    border-radius: 4px;
+    background-color: #201010;
+}
+
+.reveal .theorem {
+    background-color: #333333;
+    text-align: left;
+    margin: 10px auto;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: 32px;
+}
+
+.reveal .theorem hr {
+    margin: 8px 0;
+}
+
+.reveal .theorem > a {
+    font-size: 70%;
+}
+
+.reveal .theorem > .label {
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 28px;
+    padding: 2px 3px;
+    border-radius: 4px;
+    background-color: #101010;
+}
+
+.reveal .blackboard {
+    height: 250px;
+}
+
+.reveal .vertmid {
+    vertical-align: middle;
+}
+
+.reveal .space-right {
+    margin-right: 30px;
+}
+
+.reveal .space-bottom {
+    margin-bottom: 10px;
+}
+
+.reveal .inline-block {
+    display: inline-block;
+}
+
+.reveal .x3 {
+    width: 30%;
+}
+
+.reveal .x2 {
+    width: 45%;
+}
+
+.reveal ul > li {
+    margin-bottom: 5px !important;
+}

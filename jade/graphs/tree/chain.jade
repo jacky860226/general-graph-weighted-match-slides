@@ -1,0 +1,41 @@
++mdslide
+  |## 樹鍊剖分
+  |  
+
+  +problem({name: "QTREE", src: "SPOJ", url: "http://www.spoj.com/problems/QTREE/"})
+    | 給你一棵樹，你要支援兩種操作
+    ul
+      li
+        code change e v
+        |  : 把某個邊的權重改成 \\( v \\)
+      li
+        code query a b
+        |  : 問 \\( a \\) 到 \\( b \\) 的路徑上權重最大的邊。
+
++slide
+  p 把所有樹上的邊分成輕/重鍊。
+
+  ul
+    li 每個點往他最大子樹連的邊是重邊。
+    li 每個點往他最大子樹連的邊是輕邊。
+
+  aside.notes
+    | 要注意不是最深的子樹。
+
++slide
+  +theorem({name: ""})
+    | 路徑上最多經過 \( \ord{\log \abs{V}} \) 條輕邊。
+
+  .blackboard
+
++slide
+  h3 小結
+  p.fragment 把重邊開成線段樹等等。
+  p.fragment 輕邊直接算答案。
+
++slide
+  h2 Link-cut tree
+  p 把重邊用 Splay tree, treap 等等可以 split 的資料結構維護。
+
+  p.fragment 可以拔邊
+

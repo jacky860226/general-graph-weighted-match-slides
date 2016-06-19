@@ -1,0 +1,120 @@
+
+section
+  +slide
+    h2 Matching
+    p 幫每個點做配對，一個點只能配一次。
+    p 也可以想成是一些不相交的邊集。
+
+  +slide
+    h2 二分圖上的匹配問題。
+    p.fragment 可以轉成 Flow 來解。
+    p.fragment 也可以用交錯路徑來想。
+
+    aside.notes.
+      Flow 我們在接下來的課程會再題
+
+  +slide
+    h2 交錯路徑
+    img.vertmid.space-right(width="30%" src="img/latex/cross_road-0.svg")
+    img.vertmid(width="55%" src="img/latex/cross_road-1.svg")
+
+  +slide
+    p 一個匹配是最大匹配若且為若他沒有交錯路徑。
+
+    aside.notes.
+      講一下交錯樹。
+
+  +slide 
+    h2 一般圖匹配
+
+    p.fragment 交錯路徑上會有奇環
+    p.fragment 縮花，非常複雜。
+    .blackboard
+
+    aside.notes.
+      畫一下。
+
+  +slide 
+    h2 帶權完美匹配
+
+    p.fragment 二分圖可以轉成 Cost flow。
+    p.fragment 一般圖可以先找一個完美匹配在找負環。
+    p.fragment 或著點數小的時候可以狀態壓縮 DP。
+    .blackboard
+
+    aside.notes
+      ul 
+        li 通常會要求最大匹配。
+        li 定義負環。
+
+
+  +slide 
+    +problem({name: "中國郵差問題"}).
+      給你一個圖，邊上有權重代表路徑長，你要找一個路徑，
+      經過所有的邊至少一次(可以重複走)，最後回到出發點，問最短的路徑長。
+     
+    p.fragment 很像 Euler cycle。
+    .blackboard
+
+    aside.notes
+      ul 
+        li 把他補成沒有奇點。
+        li 一次補兩個點。補外面的點不會比較好。
+        li 用最短路來補。
+        li Matching
+
+  +slide
+    h2 一些相關的問題
+    ul
+      li.space-bottom.fragment 最大獨立點集：一個最大的點集 \( V' \) 使得裡面的點都不相鄰。其大小記做 \( I(G) \)。
+      li.space-bottom.fragment 最大匹配數：前面定義過了。其大小記做 \( M(G) \)。
+      li.space-bottom.fragment 最小點覆蓋：最小的一個點集，使得所有的邊都至少與點集裡的一個點相鄰。其大小記做 \( C_v(G) \)。
+      li.space-bottom.fragment 最小邊覆蓋：最小的一個邊集，使得所有的點都至少與邊集裡的
+        | 一個邊相鄰。其大小記做 \( C_e(G) \)。
+
+    aside.notes
+      ul 
+        li 互不衝突的點。
+        li 很像壓紙。
+
+  +slide
+    .space-right.inline-block.x3
+      img(src="img/latex/match_probs-0.svg")
+      | 獨立點集
+    .space-right.inline-block.x3
+      img(src="img/latex/match_probs-1.svg")
+      | 點覆蓋
+    .space-right.inline-block.x3
+      img(src="img/latex/match_probs-2.svg")
+      | 邊覆蓋
+
+  +slide
+    +theorem({name: ""})
+      ul
+        li \( I(G) + C_v(G) = \abs{V} \). 
+        li \( M(G) + C_e(G) = \abs{V} \).
+        li 對連通二分圖，有 \( M(G) = C_v(G), I(G) = C_e(G) \).
+
+    .blackboard
+
+    aside.notes
+      ul 
+        li 點覆蓋的補集就是獨立點集。
+        li 先找一個最大匹配，補成邊覆蓋。 M + M + V - 2M = V
+
+  +slide
+    +problem({name: "Tower Defense Game", src: "POI XX", url: "http://main.edu.pl/en/archive/oi/20/gra"}).
+      給你一張圖 \( G \) ，一個 \( d \)-covering 是一個 \(V(G)\) 的子集 \( U \) 使得
+      對於所有原圖上的點，一定有一個在 \( U \) 中的點使得這兩個點的距離不超過 \( d \)。
+
+      現在以知這個圖存在一個大小不超過 \( k \) 的 \(1\)-covering，請找出一個大小
+      不超過 \(k\) 的 \(2\)-covering。 \( \abs{V} \leq 5 \cdot 10^5, \abs{E} \leq 10^6 \)
+
+    .blackboard
+
+    aside.notes.
+      亂做都行！
+     
+
+
+  

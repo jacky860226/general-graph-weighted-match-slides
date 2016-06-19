@@ -1,0 +1,149 @@
+
+section
+  +slide
+    h1 實作
+
+    p 我們先進行一段 C++ Coding 宣導。
+
+    aside.note.
+      分享一些 coding 小心得。(其實我 coding 能力低落)
+
+  +mdslide.
+    ## 邊的表示
+
+    寫個 ``struct``
+
+    ```
+    struct Edge {
+      int u, v, f, c;
+    };
+
+    Edge e = {1, 2, 3, 4};
+    ```
+
+
+  +mdslide.
+    ## pair
+
+    ```
+    typedef pair<int, int> Edge;
+    Edge e = {1, 2};
+    ```
+
+  +mdslide.
+    ## 存很多邊
+
+    寫鍊表
+
+    或是用 ``vector``
+
+    ``` cpp
+    vector<Edge> E[VMAX];
+    // u -> v
+    E[u].PB({v, 1, 2});
+    // u <-> v
+    E[u].PB({v, 1, 2});
+    E[v].PB({u, 1, 2});
+    ```
+
+  +mdslide.
+    ## 反邊
+
+    Flow 我們會需要查反邊
+
+    ``` cpp
+    vector<Edge> E[VMAX];
+
+    #define SZ(a) ((int)(a).size())
+
+    E[u].PB({v, 1, 2, SZ(E[v])  });
+    E[v].PB({u, 1, 2, SZ(E[u])-1});
+    ```
+
+  +mdslide.
+    ## Auto
+
+    C++11 以上
+
+    ``` cpp
+    vector<Edge>::iterator it = E[v].begin();
+
+    auto it = E[v].begin();
+    ```
+
+  +mdslide.
+    ## Iterate-for
+
+    C++11 以上
+
+    ``` cpp
+    for (auto it=E[v].begin(); it!=E[v].end(); it++) {
+        int u = *it.u;
+    }
+
+    for (auto u: E[v]) {
+    }
+    ```
+
+  +mdslide.
+    ## Bits/stdc++
+
+    G++ only
+
+    ``` cpp
+    #include <bits/stdc++.h>
+    ```
+
+  +mdslide.
+    ## Initialize
+
+    ``` cpp
+    int a[5] = {0};
+    int a[5] = {};
+
+    int a[5] = {1, 2, 3}; // 1, 2, 3, 0, 0
+    ```
+
+  +mdslide.
+    ## Lambda function
+
+    ``` cpp
+    bool cmp(int i, int j) {
+        return i > j;
+    }
+    sort(vector.begin(), vector.end(), cmp);
+
+    sort(vector.begin(), vector.end(), [](int i, int j) -> bool {
+        return i > j;
+    });
+    ```
+
+  +mdslide.
+    ## Compare
+
+    ``` cpp
+    bool cmp(Edge e1, Edge e2) {
+        if (e1.u != e2.u) {
+            return e1.u < e2.u;
+        }
+        return e1.v < e2.v;
+    }
+
+    bool cmp(Edge e1, Edge e2) {
+        return tie(e1.u, e1.v) < tie(e2.u, e2.v);
+        // Or
+        return make_tuple(e1.u, e1.v) < make_tuple(e2.u, e2.v);
+    }
+    ```
+
+  +mdslide.
+    ## Tie
+
+    ``` cpp
+    tuple<int, int, int> t = {1, 2, 3};
+    int a, b, c;
+    tie(a, b, c) = t;
+    ```
+
+
+    

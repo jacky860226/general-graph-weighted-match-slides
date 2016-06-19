@@ -1,0 +1,55 @@
+doctype html
+extends ./layout
+include ./mixin
+
+block latex_settings
+  div.
+
+block slides
+  .slides
+    | \( 
+    |   \newcommand{\ord}[1]{\mathcal{O}\left(#1\right)}
+    |   \newcommand{\abs}[1]{\lvert #1 \rvert}
+    |   \newcommand{\floor}[1]{\lfloor #1 \rfloor}
+    |   \newcommand{\ceil}[1]{\lceil #1 \rceil}
+    |   \newcommand{\opord}{\operatorname{\mathcal{O}}}
+    |   \newcommand{\argmax}{\operatorname{arg\,max}}
+    |   \newcommand{\str}[1]{\texttt{"#1"}}
+    | \)
+    section
+      h1 Flow
+      p
+        .small Created by Meteor
+
+    section
+      +slide(data-markdown=true).
+        ## 大綱
+        * 流的定義
+        * 最大流演算法
+          - FF
+          - EK
+          - Dinic
+        * 最大流問題建模
+        * 最小割問題建模
+        * 最小花費最大流演算法
+        * 最小花費最大流建模
+
+      +slide(data-markdown=true).
+        ## 如果有時間的話
+        * Misc
+        * 線性規劃
+        * 趣題選講
+
+      +slide
+        h2 圖論關鍵
+        ul
+          li.fragment 知識 - 多記結論
+          li.fragment 應變 - 臨場發揮
+          li.fragment 拿紙出來用力畫啊
+
+    include maxflow/main
+    include mincut/main
+    include costflow/main
+    include misc/main
+    //-include problems/main
+    //-include lp/main

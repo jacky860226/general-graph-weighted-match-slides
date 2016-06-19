@@ -1,0 +1,47 @@
++mdslide
+  | ## 啟發式合併  
+
+  | 樹分治要找重心，很煩。
+
+  p.fragment 在適當的條件下可以用啟發式合併，  
+    | 不用找重心，DFS 下去合併上來就好了。
+
+  aside.notes 畫圖說明一下什麼是 DFS 下去合併。
+    | 剛剛 D&C 要找重心，現在不用，直接拿根。
+  
+
++mdslide
+
+  +theorem({name: '啟發式合併'}).
+    如果在合併時，每次都把其它的合併到最大的， <br/>
+    複雜度是 \\( T(n) = (n \log n) g(n) \\)。
+
+  | 關鍵還是在合併
+
+  .blackboard
+
+  aside.notes.
+    g(n) 是把一個小的元素丟到大的所花時間。
+    
+
++mdslide
+  | ### 回到原來那一題
+  | 
+
+  .blackboard
+
+
++mdslide
+  +problem({name: '中位數'})
+    | 你要維護兩種操作
+    ul
+      li
+        code query i
+        |  : 問第 \\( i \\) 個 set 的中位數。
+      li
+        code merge i j
+        |  : 把第 \\( j \\) 個 set 裡的所有元素丟到 \\( i \\) 裡。
+
+  aside.notes.
+    當然可以用一些很厲害的 DS 如 treap 做到。
+

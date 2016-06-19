@@ -1,0 +1,100 @@
+
+section
+  +slide
+    h1 Linear Programming
+
+  +slide
+    h2 Problem description
+    p example
+    p Maximize \( x_1 - 2 x_2 + x_3 \)
+    p Subject to 
+      | \[ \begin{align}
+      | x_1 + x_2 - x_3 & \leq 7 \\
+      | -x_1 - x_2 + x_3 & \leq -7 \\
+      | x_1 - 2 x_2 + 2 x_3 & \leq 4 \\
+      | x_1, x_2, x_3 & \geq 0  \\
+      | \end{align} \]
+
+  +slide
+    h2 Problem description
+    p Maximize \( \mathbf{c} \cdot \mathbf{x} \)
+    p Subject to  \[ \mathbf{A} \mathbf{x} \leq b, \; \mathbf{x} \geq \mathbf{0} \]
+
+  +slide
+    h3 Example - s-t shortest path
+    p Min \( d_t \)
+    p Subject to 
+      | \[ \begin{align}
+      | d_v & \leq d_u + w(u, v) \\
+      | d_s & = 0  \\
+      | \end{align} \]
+
+  +slide
+    h2 Dual Problem
+    p Maximize \( \mathbf{c} \cdot \mathbf{x} \) <br>
+      | Subject to  \[ \mathbf{A} \mathbf{x} \leq b, \; \mathbf{x} \geq \mathbf{0} \]
+
+    hr
+
+    p Minimize \( \mathbf{b} \cdot \mathbf{y} \) <br>
+      | Subject to  \[ \mathbf{A}^T \mathbf{y} \leq c, \; \mathbf{x} \geq \mathbf{0} \]
+
+    br
+    p.fragment \[ \mathbf{c} \cdot \mathbf{x} = \mathbf{b} \cdot \mathbf{y} \]
+
+  +slide
+    h2 Example - Dual problem of weighted matching
+
+    .blackboard
+
+  +slide
+    h2 Simplex
+    
+    p A non-polynomial algorithm to solve linear programming.
+
+  +slide
+    h2 Slack form
+
+    p Maximize \( 3x_1 + x_2 + 2x_3 \)
+      |  Subject to 
+      | \[ \begin{align}
+      | x_1 + x_2 + 3x_3 & \leq 30 \\
+      | 2x_1 + 2x_2 + 5x_3 & \leq 24 \\
+      | 4x_1 + x_2 + 2 x_3 & \leq 36 \\
+      | x_1, x_2, x_3 & \geq 0  \\
+      | \end{align} \]
+
+  +slide
+    h2 Slack form
+
+    p Maximize \( 3x_1 + x_2 + 2x_3 \)
+      |  Subject to 
+      | \[ \begin{align}
+      | 30 - x_1 - x_2 - 3x_3 & = x_4 \\
+      | 24 - 2x_1 - 2x_2 - 5x_3 & = x_5 \\
+      | 36 - 4x_1 - x_2 - 2 x_3 & = x_6 \\
+      | x_1, x_2, x_3, x_4, x_5, x_6 & \geq 0  \\
+      | \end{align} \]
+
+  +slide
+    p Maximize \( 3x_1 + x_2 + 2x_3 \)
+      |  Subject to 
+      | \[ \begin{align}
+      | 30 - x_1 - x_2 - 3x_3 & = x_4 \\
+      | 24 - 2x_1 - 2x_2 - 5x_3 & = x_5 \\
+      | 36 - 4x_1 - x_2 - 2 x_3 & = x_6 \\
+      | \end{align} \]
+
+    p Let us increase \( x_1 \). How much can we?
+
+  +slide
+    p 結論
+      ul
+        li 這個 form 被 \( n \) 個變數決定。
+        li 當 \( \mathbf{c} \) 每個分量都小於 \( 0 \)，就是
+          | 最佳解
+        li 此時的 \( \mathbf{c} \) 是 dual problem 的答案。
+
+
+
+

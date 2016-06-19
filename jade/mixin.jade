@@ -1,0 +1,51 @@
+
+mixin slide
+  doctype html
+  section&attributes(attributes)
+    if !!attributes['data-markdown']
+      script(type="text/template")
+        block
+    else
+       block
+
+mixin mdslide
+  doctype html
+  section(data-markdown)
+    script(type="text/template")
+      block
+
+mixin problem(arg)
+  .prob
+    .label 例題
+    | #{arg['name']}
+    if !!arg['src']
+      if !!arg['url']
+        |  - 
+        a(href=arg['url'])= arg['src']
+      else
+        a arg['src']
+    hr
+    block
+      
+mixin theorem(arg)
+  .theorem
+    .label 定理
+    | #{arg['name']}
+    hr
+    block
+
+mixin inline
+  span
+    code
+      block
+
+mixin cd
+  pre
+    code(data-trim)
+      block
+
+mixin n
+  doctype html
+  aside.notes(data-markdown)
+    script(type="text/template")
+      block

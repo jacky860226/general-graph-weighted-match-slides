@@ -1,0 +1,102 @@
+
+section
+  +slide
+    h1 Definition
+
+  +slide
+    h2 可行流
+
+    p 想像一下…
+    ul
+      li.fragment 有水流通過的水管
+      li.fragment 公路的車流
+      li.fragment 網路
+
+      +n
+        ul
+          li 水管：輸送自來水到你家
+          li 水流：從山上下來，洪水
+          li 公路：車子走高速公路
+          li 網路：送封包。
+
+  +slide
+
+    p 這些東西都有這些特性
+    ul
+      li.fragment 有流的上限
+      li.fragment 不能囤積
+      li.fragment 通常會有起點和終點。
+      li.fragment 而我們會希望能傳輸越多越好！
+
+      +n
+        ul
+          li 流的上限：河流暴漲 公路塞車 網速
+          li 不能囤：否則淹水 連環車禍 大家按F5
+          li s/t: 山上流到山下 過年返鄉
+          li 越多：木冊線。
+
+  +slide
+    +theorem({name: "流量網路"})
+      | 一個
+      b s-t 網路流
+      | 是
+      ul
+        li.fragment 一張圖 \( G = (V, E) \)
+        li.fragment 每條邊上有一個非負的權重 \( c(u, v) \geq 0 \) 代表邊的流量上限 
+        li.fragment 並且有二個特別的點， 源點 \( s \) 與 匯點 \( t \) 。
+
+    +n
+      ul 
+        li 來正式定義何謂 s-t cut
+        li 當然是一張圖
+        li 流量上限
+        li 起/終點
+
+
+  +slide
+    +theorem({name: "可行流的定義"})
+      |一個
+      b  s-t 可行流
+      |是一個函數 \( f : V \times V \mapsto \mathbb{R} \) 滿足以下兩個條件
+      ul
+        br
+        li.fragment
+          | 流量限制 : 
+          | \( f(u, v) \leq c(u, v), \; \forall (u, v) \)
+          br
+          br
+        li.fragment
+          | 流量對稱 : 
+          | \( f(u, v) = -f(v, u), \; \forall (u, v)\)
+          br
+          br
+        li.fragment
+          | 流量守衡 : 
+          | 對於所有 \( v \in V \setminus \{s, t\} \) ， 
+          | 有 \(  \sum\limits_{u \in V} f(v, u) = 0  \)
+      p.fragment
+        | 而我們定義這個 s-t 流的
+        b 流量
+        | 為 \( \abs{f} = \sum_{v \in V} f(s, v) \)
+
+    +n
+      ul 
+        li 流量上限
+        li 反方向流負的
+        li 不能囤積
+        li 流量就是出去多少
+
+  +slide
+    h3 Example
+    img.x2(src="img/latex/flow-0-0.svg")
+    +n 這些是上限 ， 想像成前面提到的 網路等等。
+  +slide
+    h3 Example
+    img.x2(src="img/latex/flow-0-1.svg")
+
+    +n.
+      算一下
+      * 都沒有超過上限
+      * 沒囤
+      * 算流量
+      講 s出 = t進

@@ -1,0 +1,29 @@
+section
+  +slide
+    h1 競賽圖
+
+  +mdslide
+    | ## 競賽圖的定義
+    | 「有向完全圖」
+
+    br
+    img(width="30%", src="img/latex/compete.svg")
+
+  +mdslide
+    +problem({name: 'Cycle', src:'Codeforces 117C',
+      url:'http://codeforces.com/problemset/problem/117/C'}).
+      給你一個競賽圖，找一個三環。 \\( \abs{V} \leq 2 \cdot 10^5 \\)
+   
+    img(width="30%", src="img/latex/compete3.svg")
+
+  +mdslide
+    p.fragment 有沒有可能無解？
+    p.fragment 一定有環？
+    .blackboard
+
+    aside.notes
+      ul
+        li 無解 => 最無聊的情況， 1 > 2 > 3
+        li 若無環 => 總有最大的 (SCC) 
+        li 有環 => 3 環。
+

@@ -1,0 +1,127 @@
+
+section
+  +slide
+    h1 額外的問題
+
+  +slide
+    +problem({name: '最大密度子圖'})
+      | 給你一個圖，找他的導出子圖 \( H \) 使得他的密度最大。
+      br
+      | 一個圖的密度定義為 \( \rho = \abs{E} / \abs{V} \)
+
+
+    .blackboard
+
+    +n 講一下導出子圖，畫個圖舉例
+
+  +slide
+    h3 思路
+    p.fragment 二分搜答案，假設最大密度為 \( k \)。
+    p.fragment \[ \abs{E'} - k \abs{V'} \geq 0 \iff 
+      | \max_{H = (V', E')} \abs{E'} - k \abs{V'} \geq 0 \]
+    p.fragment
+      | \[ \abs{E'} = \frac{1}{2} \sum_{v \in V'} \deg_H(v)  \]
+    p.fragment
+      | \[ \deg_H(v) = \deg_G(v) - \sum_{\substack{u \notin H \\ (v, u) \in E}} 1 \]
+
+  +slide
+    p.fragment
+      | \[ \Leftrightarrow \; - \min_{H = (V', E')} \sum_{v \in V'} \left( \left(2k - \deg_G(v) \right) +
+      | \sum_{\substack{u \notin H \\ (v, u) \in E}} 1 \right) \geq 0 \]
+
+    p.fragment 分兩類問題！
+    .blackboard
+
+    +n.
+      cost : 2k - deg
+      sum 1 = 選 v 不選 u 就 1 cost
+
+  +slide
+    +problem({name: '最大逆序密度子序列'}).
+      給你一個長度為 \( n \) 的序列，請找出他的一個子序列 \( A \)，使得
+      \( k / \abs{A} \) 最大，其中 \( k \) 是 \( A \) 中的逆序數對的個數。
+
+    .blackboard
+
+  +slide
+    +problem({name: '最少互斥路徑覆蓋'}).
+      給你一個有向圖 \( G = (V, E) \) ，你要用最少不相交的簡單路徑
+      \( P_i \) 把所有的點都蓋過。
+      一個簡單路徑是一個點都沒有重複的路徑。兩個路徑不相交表示他們
+      裡面沒有重複的點。
+
+    .blackboard
+
+  +slide
+    p 如果有一個路徑 \( v_1 \to v_2 \to v_3 \cdots \)
+    | 就是 \( \texttt{next}(v_1) = v_2, \texttt{next}(v_2) = v_3 \)
+    p.fragment 匹配！
+
+    .blackboard
+
+  +slide
+    +problem({name: '下界流'}).
+      現在網路流上的每個邊不只有流量上限 \( c^+(u, v) \)，還有
+      流量下界 \( c^-(u, v) \)，求一個合法的流(不需最大)。
+
+    .blackboard
+
+  +slide
+    p.fragment 不如先補滿下界。
+    p.fragment 但有些點的流量就不守恆了，進來的跟出來的差了 \( \delta(v) \)。
+    p.fragment 有沒有想到混合圖的歐拉回路那一題！
+
+    .blackboard
+
+  +slide
+    h2 一些和匹配相關的問題
+    ul
+      li.space-bottom.fragment 最大獨立點集：一個最大的點集 \( V' \) 使得裡面的點都不相鄰。其大小記做 \( I(G) \)。
+      li.space-bottom.fragment 最大匹配數：前面定義過了。其大小記做 \( M(G) \)。
+      li.space-bottom.fragment 最小點覆蓋：最小的一個點集，使得所有的邊都至少與點集裡的一個點相鄰。其大小記做 \( C_v(G) \)。
+      li.space-bottom.fragment 最小邊覆蓋：最小的一個邊集，使得所有的點都至少與邊集裡的
+        | 一個邊相鄰。其大小記做 \( C_e(G) \)。
+
+    aside.notes
+      ul 
+        li 互不衝突的點。
+        li 很像壓紙。
+
+  +slide
+    .space-right.inline-block.x3
+      img(src="img/misc/match_probs-0.svg")
+      | 獨立點集
+    .space-right.inline-block.x3
+      img(src="img/misc/match_probs-1.svg")
+      | 點覆蓋
+    .space-right.inline-block.x3
+      img(src="img/misc/match_probs-2.svg")
+      | 邊覆蓋
+
+  +slide
+    +theorem({name: ""})
+      ul
+        li \( I(G) + C_v(G) = \abs{V} \). 
+        li \( M(G) + C_e(G) = \abs{V} \).
+        li 對連通二分圖，有 \( M(G) = C_v(G), I(G) = C_e(G) \).
+
+    .blackboard
+
+    aside.notes
+      ul 
+        li 點覆蓋的補集就是獨立點集。
+        li 先找一個最大匹配，補成邊覆蓋。 M + M + V - 2M = V
+
+  +slide
+    h3 二分圖的特性
+    p \( M(G) = C_v(G) \)
+    p.fragment 把點覆蓋轉成 min-cut ！
+    p.fragment 很不一樣的是這次在 s 表示 (v in X and 不選 v) or (v in Y and 選 v)
+
+    .blackboard
+
+    +n.
+      從構造的思路開始，要 u -> v 不能同時不選 = 不選 v 就要選 u
+
+
+
