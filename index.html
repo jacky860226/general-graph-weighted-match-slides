@@ -517,7 +517,7 @@
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-						## BSF
+						## BFS
 						首先是BFS，如果不用BFS的話
 						
 						奇點變偶點的操作會很難處理
@@ -732,10 +732,271 @@
 					# 接下來討論帶權匹配的問題
 				</script>
 			</section>
+			<section>
+				<section data-markdown>
+					<script type="text/template">
+						# 預備知識
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						## 線性規劃的對偶(duality)
+						一個線性規劃問題可以從兩個不同的角度來分析<br>
+						其一，評估每一產品的獲利情況，而使總利潤極大化<br>
+						另一為評估生產產品所付出的成本，而使總成本極小化<br>
+						實為一物的兩面，從不同的角度觀察同一問題
+					</script>
+				</section>
+				<section>
+					<h2>定義函數</h2>
+					設\(S ⊆ V\)<br>
+					\(δ(S) = \{ (u, v) ∈ E \; | \; u ∈ S, \; v ∈ V − S \} \)<br>
+					對單一點 \(v ∈ V \) ，我們定義 \(δ(v) = δ(\{v\}) \)<br>
+				</section>
+				<section>
+					<h2>二分圖最大權匹配的線性規劃</h2>
+					<div class="prob">
+						<div class="label">原始問題</div>
+						PRIMAL<hr>
+						<p>\( max \; \sum_{e∈E} \; w(e)x_e \)</p>
+						<p>
+							限制:<br>
+							\(x_e ≥ 0, \; \forall e∈E \)<br>
+							\( x(δ(u)) = 1, \; \forall u∈V \)
+						</p>
+						定義:<br>
+						\(x(S) = \sum_{e∈S} \; x_e\)
+					</div>
+					<div class="fragment">接下來進行對偶問題的轉換</div>					
+				</section>
+				<section>
+					<h2>二分圖最大權匹配的對偶問題</h2>
+					<div class="prob">
+						<div class="label">對偶問題</div>
+						DUAL<hr>
+						<p>\( min \; \sum_{u \in V} \; z_u \)</p>
+						<p>
+							限制:<br>
+							\(z_e ≥ 0, \; \forall e∈E \)
+						</p>
+						設 \(e=(u,v)\)，這裡\(z_e = z_u + z_v - w(e)\)
+					</div>
+					<div class="fragment">所有條件都滿足時\(\sum_{u∈V} \; z_u\)就是最大權匹配的權重和</div>
+					<div class="fragment">原本求最大值問題就變成求最小值了!</div>
+				</section>
+				<section>
+					<h2>二分圖最大權匹配的對偶問題</h2>
+					<p>
+						我們稱\(z_u\)為u的vertex labeling<br/>
+						稱\(z_e=0\)的邊為等邊(Equality Edge)
+					</p>
+					在最大權匹配的時候<br/>
+					所有匹配邊都會是等邊
+				</section>
+				<section>
+					<p>
+						以「等邊」的概念，結合之前的匈牙利算法:
+					</p>
+					<p>
+						用「等邊」構成的增廣路不斷進行擴充<br/>
+						由於用來擴充的邊全是「等邊」<br/>
+						最後一定得到的最大權匹配當然全是「等邊」
+					</p>
+					<div class="fragment">找不到「等邊」?只好調整vertex labeling了</div>
+				</section>
+				<section>
+					<h2>調整 vertex labeling</h2>
+					<div class="theorem">
+						<div class="label">調整</div>
+						vertex labeling<hr>
+						<p>
+							vertex labeling 仍要維持大於等於的性質<br>
+							而且既有的「等邊」不能被改變。
+						</p>
+						設 \(T=(V_t,E_t)\)為在尋找增廣路時產生的交錯樹<br>
+						定義:<br>
+						偶點為樹上深度為偶數的點<br>
+						奇點為樹上深度為奇數的點
+					</div>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						## 原圖及交錯樹
+						![Alt text](img/originalB.png)
+						![Alt text](img/search tree.png)
+					</script>
+				</section>
+				<section>
+					<h2>調整 vertex labeling</h2>
+					<div class="theorem">
+						<div class="label">調整</div>
+						vertex labeling<hr>
+						<p>
+							令 \( d = min(z_e), \; \forall e \in E_t\)<br/>
+							讓 \(z_u\)-= \(d, \;\)\(z_v\) += \(d\)<br/>
+							\(u\)為樹上偶點，\(v\)為樹上奇點
+						</p>
+
+						如此便製造了一條(以上)的等邊，且既有等邊保持不動<br/>
+						並維持了\(z_e ≥ 0, \; \forall e∈E \)的性質<br/>
+						接著就繼續找增廣路!
+					</div>
+				</section>
+				<section>
+					二分圖本身就可以把點分成兩個集合<br/>
+					所以可以把其中一個集合作為奇點，另一個集合作為偶點
+					<div class="theorem">
+						我們一開始的時候可以設定:<br/>
+						所有\(u\)為偶點，\(z_u=max(\{w(e)|\forall e \in E\})\)<br/>
+						所有\(v\)為奇點，\(z_v=0\)
+					</div>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						## 還是會有問題
+						這樣做找出來的匹配是最大權最大匹配<br/>
+						我們想要的是最大權匹配
+						
+						沒關係，把圖補成完全二分圖就行了<br/>
+						雖然有辦法直接做最大權匹配(等下會說)<br/>
+						但是這樣code會比較好寫
+					</script>
+				</section>
+				<section>
+					<h2>如果要做最大權二分匹配</h2>
+					<div class="theorem">
+						<p>
+							vertex labeling 額外增加一個限制：<br>
+							\(z_u > 0, \; \forall u∈V \)
+						</p>
+						vertex labeling為 0 的點最後將成為未匹配點
+					</div>
+					<div class="fragment">實作也不會太難大家可以試試看</div>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>KM演算法</h1>
+					Kuhn-Munkres algorithm
+				</section>
+				<section>
+					<h3>這個算法可以求二分圖的最大權完美匹配</h3>
+				</section>
+				<section>
+					<h1>code</h1>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						int n;
+						int g[MAXN][MAXN],lx[MAXN],ly[MAXN],slack_y[MAXN];
+						//用鄰接矩陣存二分圖，把點分成X、Y兩個集合
+						//lx[x],ly[y]為x,y的vertex labeling
+						//slack_y[y]紀錄和y相鄰的最小「非等邊」值
+						int match_y[MAXN];
+						//match_y[y]=x表示y和x匹配
+						bool vx[MAXN],vy[MAXN];
+						//vx,vy是dfs的時候判斷有沒有走過用的
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						bool dfs(int x){
+							if(vx[x])return 0;
+							vx[x]=1;
+							for(int y=0,d;y<n;++y){
+								if(vy[y])continue;
+								d=lx[x]+ly[y]-g[x][y];
+								if(d==0){//等邊
+									vy[y]=1;
+									if(match_y[y]==-1||dfs(match_y[y])){
+										match_y[y]=x;
+										return 1;
+									}
+								}else if(slack_y[y]>d)slack_y[y]=d;
+								//非等邊，計算slack值
+							}
+							return 0;
+						}
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						## 接下來是主程式
+						``` cpp
+						inline int km(){
+							memset(ly,0,sizeof(int)*n);
+							memset(match_y,-1,sizeof(int)*n);
+							for(int x=0;x<n;++x){
+								lx[x]=-INF;
+								for(int y=0;y<n;++y){
+									lx[x]=max(lx[x],g[x][y]);
+								}
+							}
+							for(int x=0;x<n;++x){
+								for(int y=0;y<n;++y)slack_y[y]=INF;
+								for(;;){
+									memset(vx,0,sizeof(bool)*n);
+									memset(vy,0,sizeof(bool)*n);
+									if(dfs(x))break;//找到增廣路所以離開
+									int d=INF;
+									for(int y=0;y<n;++y){
+										if(!vy[y])d=min(d,slack_y[y]);
+									}
+									//修改vertex labeling產生新的等邊
+									for(int j=0;j<n;++j){
+										if(vx[j])lx[j]-=d;
+										if(vy[j])ly[j]+=d;
+										else slack_y[j]-=d;
+									}
+								}
+							}
+							int ans=0;
+							for(int y=0;y<n;++y)
+								if(g[match_y[y]][y]!=-INF)
+									ans+=g[match_y[y]][y];
+							return ans;
+						}
+						```
+					</script>
+				</section>
+				<section>
+					<h2>複雜度分析</h2>
+					<div class="theorem">
+						<div class="label">複雜度</div>
+						KM演算法<hr>
+						<p>dfs花\(O(|V|^2)\)的時間</p>
+						<p>
+							因為交錯樹最多有\(|V|-1\)條邊<br/>
+							故主程式裡的無限迴圈最多執行\(O(|V|)\)次<br/>
+						</p>
+						<p>總共有\(|V|\)個點需要被增廣</p>
+						總複雜度為:<br/>
+						\(O(|V|*|V|*|V|^2)=O(|V|^4)\)
+					</div>
+				</section>
+				<section>
+					<h2>還可以更好</h2>
+					<div class="theorem">
+						<div class="label">複雜度</div>
+						KM演算法<hr>
+						其實這算法複雜度可以到\(O(|V|^3)\)<br/>
+						\(\implies\)每次增加新的等邊後不需要重新DFS<br>
+						<div class="fragment">怎麼實作具體就留給你們吧</div>
+					</div>
+				</section>
+			</section>
 		</div>
 		<!--結束了-->
 	</div>
-	<script src="js/jquery.js"></script><script src="reveal/lib/js/head.min.js"></script><script src="reveal/js/reveal.js"></script><script src="js/sketch.min.js"></script><script>// Full list of configuration options available at:
+	<script src="js/jquery.js"></script>
+	<script src="reveal/lib/js/head.min.js"></script>
+	<script src="reveal/js/reveal.js"></script>
+	<script src="js/sketch.min.js"></script>
+	<script>// Full list of configuration options available at:
 	// https://github.com/hakimel/reveal.js#configuration
 	Reveal.initialize({
 	  controls: true,
