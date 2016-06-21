@@ -218,15 +218,11 @@
 						## Bipartite Matching
 					</script>
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## flow
-						最簡單的方法是用網路流，所以就不多講了
-						
-						Dinic在這種特殊圖上複雜度為O( |E|*sqrt(|V|) )
-						
-						![Alt text](img/flow-matching.png)
-					</script>
+				<section>
+						<h2>flow</h2>
+						最簡單的方法是用網路流，所以就不多講了<br/>
+						Dinic在這種特殊圖上複雜度為\( \ord{|E|\sqrt{|V|}} \)<br/>
+						<img src="img/flow-matching.png">
 				</section>
 				<section data-markdown>
 					<script type="text/template">
@@ -430,12 +426,11 @@
 						ans為最大匹配數量
 					</script>
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 複雜度
-						總共做了|V|次dfs，每次dfs花了O( max(|V|,|E|) )的時間<br>
-						總複雜度為O( |V|*max(|V|,|E|) )
-					</script>
+				<section>
+					<h2>複雜度</h2>
+					總共做了\(|V|\)次dfs<br/>
+					每次dfs花了\( \ord{max(|V|,|E|)} \)的時間<br/>
+					總複雜度為\( \ord{|V|*max(|V|,|E|)} \)
 				</section>
 				<section data-markdown>
 					<script type="text/template">
@@ -491,17 +486,15 @@
 						![Alt text](img/750px-Edmonds_lifting_path.svg.png)
 					</script>
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						這樣基本問題就解決了，來計算一下時間複雜度
-						
+				<section>
+					<p>這樣基本問題就解決了，來計算一下時間複雜度</p>
+					<p>
 						因為一朵花最少有三個點，縮花後成為一個點<br>
 						由此推得：N個點的圖建立一棵交錯樹，最多縮花N/2次
-						
-						所以找出增廣路的時間複雜度為<br>
-						O( max(|E|,|V|) ) + O( max(|E|,|V|) ) = O( max(|E|,|V|) )<br>
-						BFS的時間加上縮花的時間
-					</script>
+					</p>
+					所以找出增廣路的時間複雜度為:<br>
+					\( \ord{max(|E|,|V|)} + \ord{max(|E|,|V|)}  = \ord{max(|E|,|V|)} \)<br>
+					BFS的時間加上縮花的時間
 				</section>
 				<section data-markdown>
 					<script type="text/template">
@@ -717,14 +710,13 @@
 						```
 					</script>
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 複雜度分析
-						之前有討論過bfs加上縮花的時間為O( max(|E|,|V|) )<br>
-						總共會進行|V|次bfs
-						
-						故總複雜度為O( |V|*max(|E|,|V| ) )
-					</script>
+				<section>
+					<h2>複雜度分析</h2>
+					<p>
+						之前有討論過bfs加上縮花的時間為\(\ord{max(|E|,|V|)}\)<br>
+						總共會進行\(|V|\)次bfs
+					</p>
+					故總複雜度為\( \ord{|V|*max(|E|,|V|)} \)
 				</section>
 			</section>
 			<section data-markdown>
@@ -733,6 +725,11 @@
 				</script>
 			</section>
 			<section>
+				<section data-markdown>
+					<script type="text/template">
+						# 二分圖最大權匹配
+					</script>
+				</section>
 				<section data-markdown>
 					<script type="text/template">
 						# 預備知識
@@ -750,7 +747,7 @@
 				<section>
 					<h2>定義函數</h2>
 					設\(S ⊆ V\)<br>
-					\(δ(S) = \{ (u, v) ∈ E \; | \; u ∈ S, \; v ∈ V − S \} \)<br>
+					\(δ(S) = \{ (u, v) ∈ E \; : \; u ∈ S, \; v ∈ V − S \} \)<br>
 					對單一點 \(v ∈ V \) ，我們定義 \(δ(v) = δ(\{v\}) \)<br>
 				</section>
 				<section>
@@ -847,7 +844,7 @@
 					所以可以把其中一個集合作為奇點，另一個集合作為偶點
 					<div class="theorem">
 						我們一開始的時候可以設定:<br/>
-						所有\(u\)為偶點，\(z_u=max(\{w(e)|\forall e \in E\})\)<br/>
+						所有\(u\)為偶點，\(z_u=max(\{w(e) \; : \; \forall e \in E\})\)<br/>
 						所有\(v\)為奇點，\(z_v=0\)
 					</div>
 				</section>
@@ -968,14 +965,14 @@
 					<div class="theorem">
 						<div class="label">複雜度</div>
 						KM演算法<hr>
-						<p>dfs花\(O(|V|^2)\)的時間</p>
+						<p>dfs花\(\ord{|V|^2}\)的時間</p>
 						<p>
 							因為交錯樹最多有\(|V|-1\)條邊<br/>
-							故主程式裡的無限迴圈最多執行\(O(|V|)\)次<br/>
+							故主程式裡的無限迴圈最多執行\(\ord{|V|}\)次<br/>
 						</p>
 						<p>總共有\(|V|\)個點需要被增廣</p>
 						總複雜度為:<br/>
-						\(O(|V|*|V|*|V|^2)=O(|V|^4)\)
+						\(\ord{|V|*|V|*|V|^2}=\ord{|V|^4}\)
 					</div>
 				</section>
 				<section>
@@ -983,9 +980,60 @@
 					<div class="theorem">
 						<div class="label">複雜度</div>
 						KM演算法<hr>
-						其實這算法複雜度可以到\(O(|V|^3)\)<br/>
+						其實這算法複雜度可以到\(\ord{|V|^3}\)<br/>
 						\(\implies\)每次增加新的等邊後不需要重新DFS<br>
 						<div class="fragment">怎麼實作具體就留給你們吧</div>
+					</div>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>一般圖最大權匹配</h1>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						## 花
+						一般圖跟二分圖最大的差別就是奇環<br/>
+						之前的blossom算法是遇到奇環就把他縮成一個花<br/>
+						
+						這也可以變成線性規劃和他的對偶問題<br/>
+						但是要對花做一些處理
+					</script>
+				</section>
+				<section>
+					<h2>定義</h2>
+					<div class="theorem">
+						<div class="label">定義</div>
+						<hr>
+						設\(S⊆V\)<br/>
+						\( \gamma(S)= \{(u,v) \in E \; : \; u \in S, \; v \in S\} \)<br/>
+						\( O = \{ B⊆V \; : \; |B|是偶數且|B|≥3 \} \)
+					</div>
+				</section>
+				<section>
+					<h2>一般圖最大權匹配的線性規劃</h2>
+					<div class="prob">
+						<div class="label">原始問題</div>
+						PRIMAL<hr>
+						<p>\( max \; \sum_{e∈E} \; w(e)x_e \)</p>
+						限制:<br>
+						\( x(δ(u)) = 1, \; \forall u∈V \)<br>
+						\(x(\gamma(B))≤\floor{\frac{|B|}{2}}, \; \forall B \in O\)<br/>
+						\(x_e ≥ 0, \; \forall e∈E \)
+					</div>
+				</section>
+				<section>
+					<h2>一般圖最大權匹配的對偶問題</h2>
+					<div class="prob">
+						<div class="label">對偶問題</div>
+						DUAL<hr>
+						<p>\( min \; \sum_{u \in V} \; z_u +  \sum_{B \in O} \; \floor{\frac{|B|}{2}} z_B \)</p>
+						<p>
+							限制:<br>
+							\(z_B ≥ 0, \; \forall B∈O \)<br/>
+							\(z_e ≥ 0, \; \forall e∈E \)
+						</p>
+						設 \(e=(u,v)\)，這裡$$z_e = z_u + z_v - w(e)+\sum_{\begin{subarray}{l} B \in O \\ u,v \in \gamma(B) \end{subarray}} z_B $$<br/>
 					</div>
 				</section>
 			</section>
