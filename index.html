@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>一般圖最大權匹配</title>
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+		<meta name="description" content="General Graph Weighted Match Algorithm">
+		<meta name="author" content="SunMoon Master">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -23,7 +23,8 @@
 	<body>
 	<div></div>
 	<div class="reveal">
-		<div class="slides">\( 
+		<div class="slides">
+			\( 
 			  \newcommand{\ord}[1]{\mathcal{O}\left(#1\right)}
 			  \newcommand{\abs}[1]{\lvert #1 \rvert}
 			  \newcommand{\floor}[1]{\lfloor #1 \rfloor}
@@ -42,56 +43,48 @@
 				<section>
 					<h1>甚麼是匹配?</h1>
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 匹配
-						
-						一張圖G=(V,E)，這張圖的一個匹配M是圖G的一個子圖，其中每兩條邊都不相鄰（沒有公共頂點）
-						
-						![Alt text](img/Maximal-matching.svg)
-					</script>
+				<section>
+					<h2>匹配</h2>
+					一張圖\(G=(V,E)\)，這張圖的一個匹配\(M\)是圖\(G\)的一個子圖，其中每兩條邊都不相鄰（沒有公共頂點）<br/>
+					且不會有\(degree = 0\)的點<br/>
+					<img src="img/Maximal-matching.svg">
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 最大匹配
-						圖G的一個**最大匹配**是另一個概念，指邊數最多的匹配。
-						
-						**最大匹配**可能有不止一個，但**最大匹配**的邊數是確定的，並且不可能超過圖中頂點數的一半。
-						
-						![Alt text](img/Maximum-matching-labels.svg)
-					</script>
+				<section>
+					<h2>最大匹配</h2>
+					<p>
+						圖\(G\)的一個 <b>最大匹配</b> ，指邊數最多的匹配。
+					</p>
+					<b>最大匹配</b> 可能有不止一個，但 <b>最大匹配</b> 的邊數是確定的，並且不可能超過圖中頂點數的一半。<br/>
+					<img src="img/Maximum-matching-labels.svg">
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 完美匹配
-						若圖G的**最大匹配**包含所有原圖的所有點，稱為**完美匹配**
-						
-						若G為完全圖且頂點數為偶數時，必然存在**完美匹配**
-					</script>
+				<section>
+					<h2>完美匹配</h2>
+					圖\(G\)的 <b>最大匹配</b> 包含所有原圖的所有點，稱為 <b>完美匹配</b><br/>
+					若\(G\)為完全圖且頂點數為偶數時，必然存在 <b>完美匹配</b>
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 最大權匹配
-						##### maximum weight matching
-						一張圖G=(V,E)，∀ e ∈ E 存在一個函數 w(e) 表示e的權重
-						
-						這張圖的一個**最大權匹配**M=(V',E')是圖G的一個子圖
-						
-						滿足 ∀ e ∈ E', ∑ w(e) 為其所有匹配中最大的
-						
-						![Alt text](img/example_weighted_graph.png)
-					</script>
+			<section>
+					<h2>最大權匹配</h2>
+					<h5>maximum weight matching</h5>
+					<p>
+						一張圖\(G=(V,E)\)<br>
+						\(\forall e \in E\)存在一個函數\(w(e)\)表示\(e\)的權重
+					</p>
+					圖\(G\)的一個 <b>最大權匹配</b> \(M=(V',E')\)是圖\(G\)的一個子圖<br/>
+					滿足\(\forall e \in E',\; \sum w(e) \)為其所有匹配中最大的<br/>
+					<img src="img/example_weighted_graph.png">
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 最大權最大匹配
-						##### maximum weight maximum cardinality matching
-						圖G的一個**最大權最大匹配**M=(V',E')
-						
-						滿足 ∀ e ∈ E', ∑ w(e) 為其所有 **"最大匹配"** 中最大的
-						
-						![Alt text](img/example_max_edge_weighted_graph.png)
-					</script>
+				<section>
+					<h2>最大權最大匹配</h2>
+					<h5>maximum weight maximum cardinality matching</h5>
+					圖\(G\)的一個 <b>最大權最大匹配</b> \(M=(V',E')\)<br/>
+					滿足\(\forall e \in E',\; \sum w(e) \)為其所有 <b>"最大匹配"</b> 中最大的<br/>
+					<img src="img/example_max_edge_weighted_graph.png">
+				</section>
+				<section>
+					<h2>最大權完美匹配</h2>
+					<h5>maximum weight maximum perfect matching</h5>
+					若圖\(G\)存在完美匹配<br/>
+					此時圖\(G\)的 <b>最大權最大匹配</b> 稱為 <b>最大權完美匹配</b>
 				</section>
 			</section>
 			<section>
@@ -106,42 +99,29 @@
 						## 最大權匹配
 					</script>
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						**最大權最大匹配**允許負權邊( w(e) < 0 )
-						
-						但是**最大權匹配**不會有負權邊
-						
-						一張圖G若其所有的邊皆為負權，則其**最大權匹配**M為∅
-						
-					</script>
+				<section>
+					<p>
+						<b>最大權最大匹配</b> 允許負權邊\((w(e)<0)\)<br/>
+						但是 <b>最大權匹配</b> 不會有負權邊
+					</p>
+					若一張圖\(G\)其所有的邊皆為負權<br/>
+					則其 <b>最大權匹配</b> \(M=\varnothing\)
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 調整邊的權重
-						
-						先將圖G的所有負權邊其權重 w(e) 設為0
-						
-						在進行接下來的步驟
-					</script>
+				<section>
+					<h2>調整邊的權重</h2>
+					先將圖\(G\)的所有負權邊其權重\(w(e)\)設為\(0\)<br/>
+					在進行接下來的步驟
 				</section>
 				
-				<section data-markdown>
-					<script type="text/template">
-						## 完全圖性質
-						在G為完全圖且沒有負權邊時
-						
-						**最大權最大匹配** = **最大權匹配**
-					</script>
+				<section>
+					<h2>完全圖性質</h2>
+					<p>在\(G\)為完全圖且沒有負權邊時</p>
+					<b>最大權最大匹配</b> = <b>最大權匹配</b>
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						所以把G補成完全圖，補上的邊其權重為0
-						
-						計算**最大權最大匹配**後再把權重為0的邊去除即可
-						
-						![Alt text](img/example_max_edge_weighted_graph-change.png)
-					</script>
+				<section>
+					所以把\(G\)補成完全圖，補上的邊其權重為\(0\)<br/>
+					計算 <b>最大權最大匹配</b> 後再把權重為\(0\)的邊去除即可<br/>
+					<img src="img/example_max_edge_weighted_graph-change.png">
 				</section>
 			</section>
 			<section>
@@ -153,59 +133,40 @@
 						## 最大權最大匹配
 					</script>
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						**最大權匹配**不會有負權邊
-						
-						且零邊( w(e) = 0 )可選可不選
-						
-						但是**最大權最大匹配**允許負權邊和零邊
-					</script>
+				<section>
+					<b>最大權匹配</b> 不會有負權邊<br/>
+					且零邊\( (w(e)=0) \)可選可不選<br/>
+					但是 <b>最大權最大匹配</b> 允許負權邊和零邊
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 調整邊的權重
-						令 K = max( |w(e)| ) + 1 , ∀ e ∈ E 且 w(e) <= 0
-						
-						若沒有負權邊或零邊則 K = 0
-					</script>
+				<section>
+					<h2>調整邊的權重</h2>
+					<p>令 \(K = max( \abs{w(e)} ) + 1, \; \forall e \in E ,\; w(e) <= 0 \)</p>
+					若沒有負權邊或零邊則\(K = 0\)
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 調整邊的權重
-						把圖G中所有的邊其權重w(e)加上K產生一張新圖G'=(V,E')
-						
-						此時的新圖G'不存在負權邊和零邊
-					</script>
+				<section>
+					<h2>調整邊的權重</h2>
+					<p>把圖\(G\)中所有的邊其權重\(w(e)\)加上\(K\)產生一張新圖\(G'=(V,E')\)</p>
+					此時的新圖\(G'\)不存在負權邊和零邊
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 問題來了
-						**最大權最大匹配** 不一定等於 **最大權匹配**
-						
-						但是把所有邊的邊權加上一個超大數字P的話
-						
-						**最大權匹配**的結果就是**最大權最大匹配**
-						
-						但是P取要多大?
-					</script>
+				<section>
+					<h2>問題來了</h2>
+					<p>
+						<b>最大權最大匹配</b> 不一定等於 <b>最大權匹配</b><br/>
+						但是把所有邊的邊權加上一個超大數字\(P\)的話<br/>
+						<b>最大權匹配</b> 的結果就是 <b>最大權最大匹配</b>
+					</p>
+					但是\(P\)取要多大?
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 調整邊的權重
-						令 P = max( w(e) ) , ∀ e ∈ E'
-						
-						把圖G'中所有的邊其權重w(e)加上P產生一張新圖G''=(V,E'')
-					</script>
+				<section>
+					<h2>調整邊的權重</h2>
+					<p>令\(P = max( w(e) ) ,\; \forall e \in E'\)</p>
+					把圖\(G'\)中所有的邊其權重\(w(e)\)加上\(P\)<br/>
+					產生一張新圖\(G''=(V,E'')\)
 				</section>
-				<section data-markdown>
-					<script type="text/template">
-						此時對圖G''進行**最大權匹配**
-						
-						其結果可以對應原圖的**最大權最大匹配**
-						
-						![Alt text](img/example_max_weighted_graph-change.png)
-					</script>
+				<section>
+					此時對圖\(G''\)進行 <b>最大權匹配</b><br/>
+					其結果可以對應原圖的 <b>最大權最大匹配</b><br/>
+					<img src="img/example_max_weighted_graph-change.png">
 				</section>
 			</section>
 			<section>
@@ -269,6 +230,35 @@
 						原圖和增廣路
 					</script>
 				</section>
+				<section>
+					<h2>交錯樹</h2>
+					<div class="theorem">
+						<div class="label">交錯樹</div>
+						alternating tree<hr>
+						在進行DFS或BFS尋找增廣路的過程產生的樹稱為交錯樹<br/>
+						設 \(T=(V_t,E_t)\)為在尋找增廣路時產生的交錯樹<br/>
+						定義:<br/>
+						偶點為樹上深度為偶數的點<br/>
+						奇點為樹上深度為奇數的點
+					</div>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						## 二分圖的偶點奇點
+						二分圖是很特別的圖<br/>
+						可以把它的點分成兩個集合
+						
+						其中一個集合的點在交錯樹上永遠是奇點<br/>
+						另一集合的點在交錯樹上永遠是偶點
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						## 原圖及交錯樹
+						![Alt text](img/originalB.png)
+						![Alt text](img/search tree.png)
+					</script>
+				</section>
 				<section data-markdown>
 					<script type="text/template">
 						有沒有人發現把增廣路的匹配邊和非匹配邊反轉就可以增加匹配數量?
@@ -297,12 +287,13 @@
 					<div class="theorem">
 						<div class="label">定義</div>
 						對稱差集<hr>
-						兩個集合 A 和 B 的「對稱差集」定義為 A⊕B = (A∪B) - (A∩B)
+						兩個集合 \(A\) 和 \(B\) 的「對稱差集」定義為<br/>
+						\(A⊕B = (A∪B) - (A∩B)\)
 					</div>
 				</section>
 				<section>
-					同一張圖上的兩種匹配 M 和 M* 也可以計算對稱差集<br>
-					M⊕M*總共會產生六大類 connected component
+					<p>同一張圖上的兩種匹配\(M\)和\(M^*\)也可以計算對稱差集</p>
+					\(M⊕M^*\)總共會產生六大類 connected component
 				</section>
 				<section data-markdown>
 					<script type="text/template">
@@ -310,26 +301,26 @@
 					</script>
 				</section>
 				<section>
-					令當下的匹配M找不到以未匹配點p作為端點的擴充路徑<br>
-					並令M*是該圖的其中一個最大匹配。
+					設當下的匹配\(M\)找不到以未匹配點\(p\)作為端點的擴充路徑<br/>
+					並令\(M^*\)是該圖的其中一個最大匹配。
 				</section>
 				<section>
-					<h2>如果p不在M*上</h2>
+					<h2>如果\(p\)不在\(M^*\)上</h2>
 					<div class="theorem">
 						<div class="label">證明</div>
 						Berge's Theorem<hr>
-						刪除此點完全不會對M和M*有任何影響，定理成立。
+						刪除此點完全不會對\(M\)和\(M^*\)有任何影響，定理成立。
 					</div>
 				</section>
 				<section>
-					<h2>如果p在M*上</h2>
+					<h2>如果\(p\)在\(M^*\)上</h2>
 					<div class="theorem">
 						<div class="label">證明</div>
 						Berge's Theorem<hr>
-						1. p對於M來說是未匹配點。理所當然p不在M上。<br>
-						2. 考慮M⊕M*的六種情形。p不在M上，且p在M*上，所以只有d或e符合條件。<br>
-						3. M找不到以p作為端點的擴充路徑，所以d不符合條件，只有e符合條件。<br>
-						4. 對於M*來說，只要照著e顛倒匹配邊和未匹配邊，
+						1. \(p\)對於M來說是未匹配點。理所當然\(p\)不在\(M\)上。<br/>
+						2. 考慮\(M⊕M^*\)的六種情形。\(p\)不在\(M\)上，且\(p\)在\(M^*\)上，所以只有d或e符合條件。<br/>
+						3. \(M\)找不到以\(p\)作為端點的擴充路徑，所以d不符合條件，只有e符合條件。<br/>
+						4. 對於\(M^*\)來說，只要照著e顛倒匹配邊和未匹配邊，
 						就可以製造出另一個不會包含p的最大匹配，
 						成為1.的情形，定理還是成立。
 					</div>
@@ -342,27 +333,27 @@
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-						有了Berge's Theorem<br>
+						有了Berge's Theorem<br/>
 						我們可以用以下的方法找最大匹配
 					</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-						一開始圖上所有點都是未匹配點<br>
+						一開始圖上所有點都是未匹配點<br/>
 						將圖上每一個未匹配點都嘗試作為增廣路的端點
 					</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
 						## 如果找得到增廣路:
-						沿著增廣路修改現有匹配(擴充)<br>
+						沿著增廣路修改現有匹配(擴充)<br/>
 						此未匹配點變成了匹配點
 					</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
 						## 如果找不到擴充路徑
-						直接刪除此點<br>
+						直接刪除此點<br/>
 						繼續下去仍然可以找到原圖的其中一個最大匹配
 					</script>
 				</section>
@@ -373,12 +364,12 @@
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-						用vector存圖<br>
-						若G[x]=y，則x和y之間有一條邊<br>
-						match為匹配結果，若match[y]=x<br>
+						用vector存圖<br/>
+						若G[x]=y，則x和y之間有一條邊<br/>
+						match為匹配結果，若match[y]=x<br/>
 						則x和y之間有一條匹配邊
 						
-						注意:因為是二分圖，可以把點分成兩個集合<br>
+						注意:因為是二分圖，可以把點分成兩個集合<br/>
 						x和y在不同的集合，所以編號可以一樣
 						``` cpp
 						#define MAXN 1000
@@ -405,7 +396,7 @@
 							return false;
 						}
 						```
-						如果有增廣路就進行擴充並return true<br>
+						如果有增廣路就進行擴充並return true<br/>
 						否則return false
 					</script>
 				</section>
@@ -456,13 +447,13 @@
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-						一般圖跟二分圖最大的差別就是奇環<br>
-						在交替路上行走的時候，如果遇到奇環<br>
-						那就把奇環縮成一朵花(blossom)<br>
+						一般圖跟二分圖最大的差別就是奇環<br/>
+						在交替路上行走的時候，如果遇到奇環<br/>
+						那就把奇環縮成一朵花(blossom)<br/>
 						並把花中所有點設成偶點
 						
-						既然花上的點都可以成為偶點<br>
-						那麼乾脆把花直接縮成一個偶點<br>
+						既然花上的點都可以成為偶點<br/>
+						那麼乾脆把花直接縮成一個偶點<br/>
 						會讓交錯樹變得更簡潔明白
 					</script>
 				</section>
@@ -473,12 +464,12 @@
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-						縮花之後把整個花當成一個點<br>
+						縮花之後把整個花當成一個點<br/>
 						值得注意的是，花裡可以包含其它花
 						
-						繼續尋找增廣路，如果有找到增廣路<br>
-						和匈牙利算法一樣，必須擴充路徑<br>
-						這個時候要處理花的問題<br>
+						繼續尋找增廣路，如果有找到增廣路<br/>
+						和匈牙利算法一樣，必須擴充路徑<br/>
+						這個時候要處理花的問題<br/>
 					</script>
 				</section>
 				<section data-markdown>
@@ -489,11 +480,11 @@
 				<section>
 					<p>這樣基本問題就解決了，來計算一下時間複雜度</p>
 					<p>
-						因為一朵花最少有三個點，縮花後成為一個點<br>
+						因為一朵花最少有三個點，縮花後成為一個點<br/>
 						由此推得：N個點的圖建立一棵交錯樹，最多縮花N/2次
 					</p>
-					所以找出增廣路的時間複雜度為:<br>
-					\( \ord{max(|E|,|V|)} + \ord{max(|E|,|V|)}  = \ord{max(|E|,|V|)} \)<br>
+					所以找出增廣路的時間複雜度為:<br/>
+					\( \ord{max(|E|,|V|)} + \ord{max(|E|,|V|)}  = \ord{max(|E|,|V|)} \)<br/>
 					BFS的時間加上縮花的時間
 				</section>
 				<section data-markdown>
@@ -532,8 +523,8 @@
 				<section data-markdown>
 					<script type="text/template">
 						## 可能增廣的邊
-						一朵花裡可能會有其他的花<br>
-						那花裡也可能會包含其他花<br>
+						一朵花裡可能會有其他的花<br/>
+						那花裡也可能會包含其他花<br/>
 						層層疊疊
 						
 						但是增廣的時候只會有一條路徑被增廣
@@ -542,21 +533,21 @@
 				<section data-markdown>
 					<script type="text/template">
 						## 可能增廣的邊
-						因為花是在BFS時建構出來的<br>
-						BFS之後要把花拆掉<br>
+						因為花是在BFS時建構出來的<br/>
+						BFS之後要把花拆掉<br/>
 						
-						所以一朵花只會有一個奇環<br>
-						其環上的某條鏈有機會被增廣<br>
+						所以一朵花只會有一個奇環<br/>
+						其環上的某條鏈有機會被增廣<br/>
 						
 						因此只需要紀錄哪些點在這個環上即可
 					</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-						圖中節點的編號為BFS順序<br>
-						白色的部分表示還沒遍歷<br>
-						灰色表示一般節點<br>
-						相同顏色表示在相同的花裡面<br>
+						圖中節點的編號為BFS順序<br/>
+						白色的部分表示還沒遍歷<br/>
+						灰色表示一般節點<br/>
+						相同顏色表示在相同的花裡面<br/>
 						
 						可以看出 3 和 9 在黃色的花和藍色的花形成時被遺棄了
 						
@@ -566,7 +557,7 @@
 				<section data-markdown>
 					<script type="text/template">
 						## 可能增廣的邊
-						不需要擔心被遺棄的節點<br>
+						不需要擔心被遺棄的節點<br/>
 						之後不會再經過且不可能被增廣
 					</script>
 				</section>
@@ -622,7 +613,7 @@
 								v=match[u];
 								if(S[v]==1)qpush(v);//所有奇點變偶點 
 								st[u]=st[v]=l;
-								//注意這邊以花的花托代表這個花<br>
+								//注意這邊以花的花托代表這個花
 								//所以 st[u]=st[v]=l 就是設定 u 和 v 屬於 l 這朵花
 								u=pa[v];
 							}
@@ -713,7 +704,7 @@
 				<section>
 					<h2>複雜度分析</h2>
 					<p>
-						之前有討論過bfs加上縮花的時間為\(\ord{max(|E|,|V|)}\)<br>
+						之前有討論過bfs加上縮花的時間為\(\ord{max(|E|,|V|)}\)<br/>
 						總共會進行\(|V|\)次bfs
 					</p>
 					故總複雜度為\( \ord{|V|*max(|E|,|V|)} \)
@@ -738,42 +729,42 @@
 				<section data-markdown>
 					<script type="text/template">
 						## 線性規劃的對偶(duality)
-						一個線性規劃問題可以從兩個不同的角度來分析<br>
-						其一，評估每一產品的獲利情況，而使總利潤極大化<br>
-						另一為評估生產產品所付出的成本，而使總成本極小化<br>
+						一個線性規劃問題可以從兩個不同的角度來分析<br/>
+						其一，評估每一產品的獲利情況，而使總利潤極大化<br/>
+						另一為評估生產產品所付出的成本，而使總成本極小化<br/>
 						實為一物的兩面，從不同的角度觀察同一問題
 					</script>
 				</section>
 				<section>
 					<h2>定義函數</h2>
-					設\(S ⊆ V\)<br>
-					\(δ(S) = \{ (u, v) ∈ E \; : \; u ∈ S, \; v ∈ V − S \} \)<br>
-					對單一點 \(v ∈ V \) ，我們定義 \(δ(v) = δ(\{v\}) \)<br>
+					設\(S ⊆ V\)<br/>
+					\(δ(S) = \{ (u, v) ∈ E \; : \; u ∈ S, \; v ∈ V − S \} \)<br/>
+					對單一點 \(v ∈ V \) ，我們定義 \(δ(v) = δ(\{v\}) \)<br/>
 				</section>
 				<section>
-					<h2>二分圖最大權匹配的線性規劃</h2>
+					<h2>二分圖最大權完美匹配的線性規劃</h2>
 					<div class="prob">
 						<div class="label">原始問題</div>
 						PRIMAL<hr>
 						<p>\( max \; \sum_{e∈E} \; w(e)x_e \)</p>
 						<p>
-							限制:<br>
-							\(x_e ≥ 0, \; \forall e∈E \)<br>
+							限制:<br/>
+							\(x_e ≥ 0, \; \forall e∈E \)<br/>
 							\( x(δ(u)) = 1, \; \forall u∈V \)
 						</p>
-						定義:<br>
+						定義:<br/>
 						\(x(S) = \sum_{e∈S} \; x_e\)
 					</div>
 					<div class="fragment">接下來進行對偶問題的轉換</div>					
 				</section>
 				<section>
-					<h2>二分圖最大權匹配的對偶問題</h2>
+					<h2>二分圖最大權完美匹配的對偶問題</h2>
 					<div class="prob">
 						<div class="label">對偶問題</div>
 						DUAL<hr>
 						<p>\( min \; \sum_{u \in V} \; z_u \)</p>
 						<p>
-							限制:<br>
+							限制:<br/>
 							\(z_e ≥ 0, \; \forall e∈E \)
 						</p>
 						設 \(e=(u,v)\)，這裡\(z_e = z_u + z_v - w(e)\)
@@ -782,12 +773,12 @@
 					<div class="fragment">原本求最大值問題就變成求最小值了!</div>
 				</section>
 				<section>
-					<h2>二分圖最大權匹配的對偶問題</h2>
+					<h2>二分圖最大權完美匹配的對偶問題</h2>
 					<p>
 						我們稱\(z_u\)為u的vertex labeling<br/>
 						稱\(z_e=0\)的邊為等邊(Equality Edge)
 					</p>
-					在最大權匹配的時候<br/>
+					在最大權完美匹配的時候<br/>
 					所有匹配邊都會是等邊
 				</section>
 				<section>
@@ -797,31 +788,14 @@
 					<p>
 						用「等邊」構成的增廣路不斷進行擴充<br/>
 						由於用來擴充的邊全是「等邊」<br/>
-						最後一定得到的最大權匹配當然全是「等邊」
+						最後得到的最大權完美匹配當然全是「等邊」
 					</p>
 					<div class="fragment">找不到「等邊」?只好調整vertex labeling了</div>
 				</section>
 				<section>
 					<h2>調整 vertex labeling</h2>
-					<div class="theorem">
-						<div class="label">調整</div>
-						vertex labeling<hr>
-						<p>
-							vertex labeling 仍要維持大於等於的性質<br>
-							而且既有的「等邊」不能被改變。
-						</p>
-						設 \(T=(V_t,E_t)\)為在尋找增廣路時產生的交錯樹<br>
-						定義:<br>
-						偶點為樹上深度為偶數的點<br>
-						奇點為樹上深度為奇數的點
-					</div>
-				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 原圖及交錯樹
-						![Alt text](img/originalB.png)
-						![Alt text](img/search tree.png)
-					</script>
+					vertex labeling 仍要維持大於等於的性質<br/>
+					而且既有的「等邊」不能被改變。
 				</section>
 				<section>
 					<h2>調整 vertex labeling</h2>
@@ -829,7 +803,8 @@
 						<div class="label">調整</div>
 						vertex labeling<hr>
 						<p>
-							令 \( d = min(z_e), \; \forall e \in E_t\)<br/>
+							設交錯樹 \( T = (U_t,V_t) \)<br/>
+							令 \( d = min(z_e), \; \forall e \in δ(V_t) \)<br/>
 							讓 \(z_u\)-= \(d, \;\)\(z_v\) += \(d\)<br/>
 							\(u\)為樹上偶點，\(v\)為樹上奇點
 						</p>
@@ -840,8 +815,9 @@
 					</div>
 				</section>
 				<section>
-					二分圖本身就可以把點分成兩個集合<br/>
-					所以可以把其中一個集合作為奇點，另一個集合作為偶點
+					因為是二分圖<br/>
+					所以可以事先知道哪些點是奇點<br/>
+					哪些點是偶點
 					<div class="theorem">
 						我們一開始的時候可以設定:<br/>
 						所有\(u\)為偶點，\(z_u=max(\{w(e) \; : \; \forall e \in E\})\)<br/>
@@ -851,7 +827,7 @@
 				<section data-markdown>
 					<script type="text/template">
 						## 還是會有問題
-						這樣做找出來的匹配是最大權最大匹配<br/>
+						這樣做找出來的匹配是最大權完美匹配<br/>
 						我們想要的是最大權匹配
 						
 						沒關係，把圖補成完全二分圖就行了<br/>
@@ -863,7 +839,7 @@
 					<h2>如果要做最大權二分匹配</h2>
 					<div class="theorem">
 						<p>
-							vertex labeling 額外增加一個限制：<br>
+							vertex labeling 額外增加一個限制：<br/>
 							\(z_u > 0, \; \forall u∈V \)
 						</p>
 						vertex labeling為 0 的點最後將成為未匹配點
@@ -981,7 +957,7 @@
 						<div class="label">複雜度</div>
 						KM演算法<hr>
 						其實這算法複雜度可以到\(\ord{|V|^3}\)<br/>
-						\(\implies\)每次增加新的等邊後不需要重新DFS<br>
+						\(\implies\)每次增加新的等邊後不需要重新DFS<br/>
 						<div class="fragment">怎麼實作具體就留給你們吧</div>
 					</div>
 				</section>
@@ -1007,29 +983,29 @@
 						<hr>
 						設\(S⊆V\)<br/>
 						\( \gamma(S)= \{(u,v) \in E \; : \; u \in S, \; v \in S\} \)<br/>
-						\( O = \{ B⊆V \; : \; |B|是偶數且|B|≥3 \} \)
+						\( O = \{ B⊆V \; : \; |B|是奇數且|B|≥3 \} \)
 					</div>
 				</section>
 				<section>
-					<h2>一般圖最大權匹配的線性規劃</h2>
+					<h2>一般圖最大權完美匹配的線性規劃</h2>
 					<div class="prob">
 						<div class="label">原始問題</div>
 						PRIMAL<hr>
 						<p>\( max \; \sum_{e∈E} \; w(e)x_e \)</p>
-						限制:<br>
-						\( x(δ(u)) = 1, \; \forall u∈V \)<br>
+						限制:<br/>
+						\( x(δ(u)) = 1, \; \forall u∈V \)<br/>
 						\(x(\gamma(B))≤\floor{\frac{|B|}{2}}, \; \forall B \in O\)<br/>
 						\(x_e ≥ 0, \; \forall e∈E \)
 					</div>
 				</section>
 				<section>
-					<h2>一般圖最大權匹配的對偶問題</h2>
+					<h2>一般圖最大權完美匹配的對偶問題</h2>
 					<div class="prob">
 						<div class="label">對偶問題</div>
 						DUAL<hr>
 						<p>\( min \; \sum_{u \in V} \; z_u +  \sum_{B \in O} \; \floor{\frac{|B|}{2}} z_B \)</p>
 						<p>
-							限制:<br>
+							限制:<br/>
 							\(z_B ≥ 0, \; \forall B∈O \)<br/>
 							\(z_e ≥ 0, \; \forall e∈E \)
 						</p>
