@@ -1244,6 +1244,518 @@
 					<h1>code</h1>
 					<h4>Edmonds' Maximum Weight Matching Algorithm</h4>
 				</section>
+				<section>
+					這裡為了方便實作所以用邊權乘二來計算\(z_e\)的值<br/>
+					這樣就不會出現浮點數誤差了
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						#define INF INT_MAX
+						#define MAXN 400
+						struct edge{
+							int u,v,w;
+							//表示(u,v)為一條邊其權重為w 
+							edge(){}
+							edge(int u,int v,int w):u(u),v(v),w(w){}
+						}; 
+						int n,n_x;
+						//有n個點，編號為 1 ~ n
+						//n_x表示當前點+花的數量，編號 n+1 ~ n_x 為花 
+						edge g[ MAXN*2+1 ][ MAXN*2+1 ];
+						//用鄰接矩陣存圖，因為最多有n-1朵花，所以大小會是MAXN*2
+						vector<int> flower[ MAXN*2+1 ];
+						//flower[b]記錄了b中有哪些點 
+						//我們紀錄花中有那些點的方式是只紀錄花裡面的最外層花 
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						![Alt text](img/example_for_blossom_save.png)<br/>
+						``` cpp
+						flower[ b2 ] = { b1, 4, 3, 2, 11, 10, 9}
+						flower[ b1 ] = { 6, 5, 8}
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						![Alt text](img/example_for_blossom_save2.png)<br/>
+						``` cpp
+						flower[ b2 ] = { 9, b1, 4, 3, 2, 11, 10}
+						flower[ b1 ] = { 5, 8, 6}
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						int lab[ MAXN*2+1 ];
+						//lab[u]用來紀錄zu, lab[b]用來記錄zB 
+						int match[ MAXN*2+1 ],slack[ MAXN*2+1 ],st[ MAXN*2+1 ],pa[ MAXN*2+1 ];
+						//match[x]=y表示(x,y)是匹配邊，這裡x、y可能是花 
+						//slack[x]=u表示z(x,u)是所有和x相鄰的邊中最小的那條邊 
+						//st[x]=b表示x所在的花為b，若x=b且b<=n表示正常節點 
+						//pa[v]=u表示在交錯樹中，v的父母節點是u 
+						int flower_from[ MAXN*2+1 ][ MAXN+1 ],S[ MAXN*2+1 ],vis[ MAXN*2+1 ];
+						/*
+						flower_from[b][x]=xs表示
+						x是b裡面的一個點，xs是b裡面的一朵花或一個點，同時x=xs 或 x是xs的其中一個點 
+						*/
+						//S[u]={-1:沒走過 0:偶點 1:奇點}
+						//vis只用在找lca的時候檢查是不是走過了
+						queue<int> q;
+						//BFS找增廣錄用的queue 
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						![Alt text](img/example_for_blossom_save.png)<br/>
+						``` cpp
+						flower_from[ b2 ][ 6 ] = b1
+						flower_from[ b2 ][ 5 ] = b1
+						flower_from[ b2 ][ 9 ] = 9
+						flower_from[ b1 ][ 6 ] = 6
+						以此類推
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						inline int e_delta(const edge &e){
+							//計算ze，為了方便起見先把所有邊的權重乘二 
+							//在花裡面計算e_delta值是錯誤的 
+							return lab[e.u]+lab[e.v]-g[e.u][e.v].w*2;
+						}
+						inline void update_slack(int u,int x){
+							//以u更新slack[x]的值 
+							if(!slack[x]||e_delta(g[u][x])<e_delta(g[slack[x]][x])){
+								slack[x]=u;
+							}
+						}
+						inline void set_slack(int x){
+							//算出slack[x]的值，slack[x]=0表示x是交錯樹中的節點 
+							slack[x]=0;
+							for(int u=1;u<=n;++u){
+								if(g[u][x].w>0&&st[u]!=x&&S[st[u]]==0){
+									update_slack(u,x);
+								}
+							}
+						}
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						void q_push(int x){
+							//把x丟到queue裡面，我們設定queue不能直接push一朵花
+							if(x<=n)q.push(x);
+							else{
+								//若要push花必須要把花裡面原圖的點丟到queue裡面 
+								for(size_t i=0;i<flower[x].size();i++){
+									q_push(flower[x][i]);
+								}
+							}
+						}
+						inline void set_st(int x,int b){
+							//將x所在的花設為b
+							st[x]=b;
+							if(x>n){
+								//若x也是花的話，就必須要把x裡面的點其所在的花也設為b 
+								for(size_t i=0;i<flower[x].size();++i){
+									set_st(flower[x][i],b);
+								}
+							}
+						}
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						inline int get_pr(int b,int xr){
+							//xr是flower[b]中的一個點，回傳值pr是它的位置 
+							//為了方便程式運作，我們讓 flower[b][0]~flower[b][pr]為花裡的交替路 
+							int pr=find(flower[b].begin(),flower[b].end(),xr)-flower[b].begin(); 
+							if(pr%2==1){
+								//檢查他在花裡的位置，如果 flower[b][0]~flower[b][pr]不是交替路
+								//就把整朵花反轉，重新計算pr 
+								//讓 flower[b][0]~flower[b][pr]為花裡的交替路 
+								reverse(flower[b].begin()+1,flower[b].end());
+								return (int)flower[b].size()-pr;
+							}else return pr;
+						}
+						```
+					</script>
+				</section>
+				<section>
+					<table>
+					<tr>
+						<td>
+							<img src="img/example_for_blossom_save2.png">
+						</td>
+						<td style="vertical-align: top;">
+							<div class="theorem">
+							如果你使用<code>get_pr(b2,11)</code><br/>
+							<code>flower[b2]</code>會變成<code>{9,10,11,2,3,4,b1}</code><br/>
+							並回傳2
+							<hr/>
+							如果你使用<code>get_pr(b2,2)</code><br/>
+							<code>flower[b2]</code>會變成<code>{9,b1,4,3,2,11,10}</code><br/>
+							並回傳4
+							</div>
+						</td>
+					</tr>
+					</table>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						inline void set_match(int u,int v){
+							//設定u和v為匹配邊，u和v有可能是花 
+							match[u]=g[u][v].v;
+							if(u>n){
+								//如果u是花的話 
+								edge e=g[u][v];
+								int xr=flower_from[u][e.u];//找出e.u在flower[u]裡的哪朵花上 
+								int pr=get_pr(u,xr);//找出xr的位置並讓0~pr為花裡的交替路徑 
+								for(int i=0;i<pr;++i){//把花裡的交替路上的匹配邊和非匹配邊反轉 
+									set_match(flower[u][i],flower[u][i^1]);
+								}
+								set_match(xr,v);//設定(xr,v)為匹配邊 
+								rotate(flower[u].begin(),flower[u].begin()+pr,flower[u].end());
+								//最後把pr設為花托，因為花的存法是flower[u][0]會是u的花托
+								//所以要把flower[u][pr] rotate 到最前面 
+							}
+						}
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						inline void augment(int u,int v){
+							//把u和u的祖先全部增廣，並設(u,v)為匹配邊 
+							for(;;){
+								int xnv=st[match[u]];
+								set_match(u,v);
+								if(!xnv)return;
+								set_match(xnv,st[pa[xnv]]);
+								u=st[pa[xnv]];
+								v=xnv;
+							}
+						}
+						inline int get_lca(int u,int v){
+							//找出u,v在交錯樹上的lca 
+							static int t=0;
+							for(++t;u||v;swap(u,v)){
+								if(u==0)continue;
+								if(vis[u]==t)return u;
+								vis[u]=t;//這種方法可以不用清空vis陣列 
+								u=st[match[u]];
+								if(u)u=st[pa[u]];
+							}
+							return 0;
+						}
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						inline void add_blossom(int u,int lca,int v){
+							//將u,v,lca這朵花縮成一個點 b
+							//交錯樹上u,v的lca即為花托 
+							int b=n+1;
+							while(b<=n_x&&st[b])++b;
+							if(b>n_x)++n_x;
+							//找出目前未使用的花的編號 
+							lab[b]=0;//設定zB=0 
+							S[b]=0;//整朵花為一個偶點 
+							match[b]=match[lca];//設定花的匹配邊為花托的匹配邊 
+							flower[b].clear();
+							flower[b].push_back(lca);
+							for(int x=u,y;x!=lca;x=st[pa[y]]){
+								flower[b].push_back(x);
+								y=st[match[x]];
+								flower[b].push_back(y);
+								q_push(y);
+							}
+							reverse(flower[b].begin()+1,flower[b].end());
+							for(int x=v,y;x!=lca;x=st[pa[y]]){
+								flower[b].push_back(x);
+								y=st[match[x]];
+								flower[b].push_back(y);
+								q_push(y);
+							}
+							//b中所有點以環形的方式加入flower[b]，並設花托為首個元素 
+							set_st(b,b);//把整朵花裡所有的元素其所在的花設為b 
+							for(int x=1;x<=n_x;++x){
+								g[b][x].w=0;
+								g[x][b].w=0;
+							}
+							for(int x=1;x<=n;++x){
+								flower_from[b][x]=0;
+							}
+							for(size_t i=0;i<flower[b].size();++i){
+								int xs=flower[b][i];
+								for(int x=1;x<=n_x;++x){
+									//設定b和x相鄰的邊為b裡面和x相鄰的邊e_delta最小的那條 
+									if(g[b][x].w==0||e_delta(g[xs][x])<e_delta(g[b][x])){ 
+										g[b][x]=g[xs][x];
+										g[x][b]=g[x][xs];
+									}
+								}
+								for(int x=1;x<=n;++x){
+									if(flower_from[xs][x]){
+										//如果b裡面的點xs有包含x
+										//那flower_from[b][x]就會是xs 
+										flower_from[b][x]=xs;
+									}
+								}
+							}
+							set_slack(b);
+							//最後必須要設定b的slack值 
+						}
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						inline void expand_blossom(int b){
+							//b是奇花且zB=0時，必須要把b拆開 
+							//因為只拆開b而已，所以如果b裡面有包含其他的花  
+							//不需要把他們拆開 
+							for(size_t i=0;i<flower[b].size();++i){
+								set_st(flower[b][i],flower[b][i]);
+								//先把flower[b]裡每個元素所在的花設為自己 
+							}
+							int xr=flower_from[b][g[b][pa[b]].u];
+							//xr表示交錯路上b的父母節點在flower[b]裡的哪朵花上
+							int pr=get_pr(b,xr);//找出xr的位置並讓0~pr為花裡的交替路徑 
+							for(int i=0;i<pr;i+=2){
+								//把交替路徑拆開到交錯樹中
+								//並把交替路中的偶點丟到queue裡 
+								int xs=flower[b][i];
+								int xns=flower[b][i+1];
+								pa[xs]=g[xns][xs].u;
+								S[xs]=1;
+								S[xns]=0;
+								slack[xs]=0;
+								set_slack(xns);
+								q_push(xns);
+							}
+							S[xr]=1;//這時xr會是奇點或奇花 
+							pa[xr]=pa[b];
+							for(size_t i=pr+1;i<flower[b].size();++i){
+								//把花中所有不再交替路徑上的點設為未走訪 
+								int xs=flower[b][i];
+								S[xs]=-1;
+								set_slack(xs);
+							}
+							st[b]=0;
+						}
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						inline bool on_found_edge(const edge &e){
+							//BFS時找到一條等邊e
+							//要對她進行以下的處理 
+							//這裡u一定是偶點 
+							int u=st[e.u],v=st[e.v];
+							if(S[v]==-1){
+								//v是未走訪節點 
+								pa[v]=e.u;
+								S[v]=1;
+								int nu=st[match[v]];
+								slack[v]=0;
+								slack[nu]=0;
+								S[nu]=0;
+								q_push(nu);
+							}else if(S[v]==0){
+								//v是偶點 
+								int lca=get_lca(u,v);
+								if(!lca){//lca=0表示u,v在不同的交錯樹上，有增廣路 
+									augment(u,v);
+									augment(v,u);
+									return true;//找到增廣路 
+								}else add_blossom(u,lca,v);
+								//否則u,v在同棵樹上就會是一朵花，要縮花 
+							}
+							return false;
+						}
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						inline bool matching(){
+							memset(S+1,-1,sizeof(int)*n_x);
+							memset(slack+1,0,sizeof(int)*n_x);
+							q=queue<int>();//把queue清空 
+							for(int x=1;x<=n_x;++x){
+								if(st[x]==x&&!match[x]){
+									//把所有非匹配點加入queue裡面，並設為偶點 
+									pa[x]=0;
+									S[x]=0;
+									q_push(x);
+								}
+							}
+							if(q.empty())return false;//所有點都有匹配了 
+							for(;;){
+								while(q.size()){
+									//BFS 
+									int u=q.front();
+									q.pop();
+									if(S[st[u]]==1)continue;
+									for(int v=1;v<=n;++v){
+										if(g[u][v].w>0&&st[u]!=st[v]){
+											if(e_delta(g[u][v])==0){
+											if(on_found_edge(g[u][v]))return true;
+											}else update_slack(u,st[v]);
+										}
+									}
+								}
+								//修改lab值 
+								int d=INF;
+								for(int u=1;u<=n;++u){
+									//這是為了防止出現lab<0的情況發生
+									//只要有任何一個lab[u]=0就結束程式 
+									if(S[st[u]]==0)
+										d=min(d,lab[u]);
+								} 
+								for(int b=n+1;b<=n_x;++b){
+									if(st[b]==b&&S[b]==1)
+										d=min(d,lab[b]/2);
+								}
+								for(int x=1;x<=n_x;++x)
+									if(st[x]==x&&slack[x]){
+										if(S[x]==-1)
+											d=min(d,e_delta(g[slack[x]][x]));
+										else if(S[x]==0)
+											d=min(d,e_delta(g[slack[x]][x])/2);
+									}
+								for(int u=1;u<=n;++u){
+									if(S[st[u]]==0){
+										if(lab[u]==d)return 0;
+										//如果lab[u]=0就直接結束程式 
+										lab[u]-=d;
+									}else if(S[st[u]]==1)
+										lab[u]+=d;
+								}
+								for(int b=n+1;b<=n_x;++b){
+									if(st[b]==b){
+										if(S[st[b]]==0)
+											lab[b]+=d*2;
+										else if(S[st[b]]==1)
+											lab[b]-=d*2;
+									}
+								}
+								q=queue<int>();//把queue清空 
+								for(int x=1;x<=n_x;++x){
+									//檢查看看有沒有增廣路徑產生 
+									if(st[x]==x&&slack[x]&&st[slack[x]]!=x&&e_delta(g[slack[x]][x])==0)
+										if(on_found_edge(g[slack[x]][x]))
+											return true;
+								}
+								for(int b=n+1;b<=n_x;++b){
+									//EXPAND的操作，把所有lab[b]=0的奇花拆開 
+									if(st[b]==b&&S[b]==1&&lab[b]==0)
+										expand_blossom(b);
+								}
+							}
+							return false;
+						}
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						## 主程式
+						``` cpp
+						inline pair<long long,int> weight_blossom(){
+							//主程式，一開始先初始化 
+							memset(match+1,0,sizeof(int)*n);
+							n_x=n;//一開始沒有花 
+							int n_matches=0;
+							long long tot_weight=0;
+							for(int u=0;u<=n;++u){
+								//先把自己所在的花設為自己 
+								st[u]=u;
+								flower[u].clear();
+							}
+							int w_max=0;
+							for(int u=1;u<=n;++u)
+								for(int v=1;v<=n;++v){
+									//u是一個點時，裡面所包含的點只有自己 
+									flower_from[u][v]=(u==v?u:0);
+									w_max=max(w_max,g[u][v].w);
+									//找出最大的邊權 
+								}
+							for(int u=1;u<=n;++u)lab[u]=w_max;
+							//讓所有的lab=最大的邊權  
+							//因為這裡實作是用邊權乘二來計算ze的值所以不用除以二 
+							while(matching())++n_matches;
+							for(int u=1;u<=n;++u)
+								if(match[u]&&match[u]<u)
+									tot_weight+=g[u][match[u]].w;
+							return make_pair(tot_weight,n_matches);
+						}
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						## 很重要 使用前一定要初始化
+						``` cpp
+						inline void init_weight_graph(){
+							//在把邊輸入到圖裡面前必須要初始化 
+							//因為是最大權匹配所以把不存在的邊設為0 
+							for(int u=1;u<=n;++u)
+								for(int v=1;v<=n;++v)
+									g[u][v]=edge(u,v,0);
+						}
+						```
+					</script>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>複雜度分析</h2>
+					<div class="theorem">
+						每朵花在一次BFS中只會被縮花或是拆花一次<br/>
+						每次縮花拆花要\(\ord{\abs{V}}\)的時間<br/>
+						最多總共有\(\ord{\abs{V}}\)朵花，故花的處理花費\(\ord{\abs{V}^2}\)<br/>
+						而BFS花費\(\ord{\abs{V}+\abs{E}}\)<br/>
+						因此找增廣路花費\(\ord{\abs{V}+\abs{E}}+\ord{\abs{V}^2}=\ord{\abs{V}^2}\)
+					</div>
+				</section>
+				<section>
+					<h2>複雜度分析</h2>
+					<div class="theorem">
+						最多做\(\abs{V}\)次BFS<br/>
+						故總時間複雜度為\(\ord{\abs{V}^3}\)
+					</div>
+				</section>
+			</section>
+			<section>
+				<div class="theorem">
+					參考資料:<hr/>
+					維基百科<br/>
+					演算法筆記<br/>
+					vfleaking的博客<br/>
+					Blossom V: A new implementation of a minimum cost perfect matching algorithm<br/>
+					Implementation of \(\ord{n m \; log \; n}\) Weighted Mathings in General Graphs: The Power of Data Strutures
+				</div>
 			</section>
 		</div>
 		<!--結束了-->
