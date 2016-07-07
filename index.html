@@ -70,14 +70,14 @@
 						\(\forall e \in E\)存在一個函數\(w(e)\)表示\(e\)的權重
 					</p>
 					圖\(G\)的一個 <b>最大權匹配</b> \(M=(V',E')\)是圖\(G\)的一個子圖<br/>
-					滿足\( \sum w(e):\forall e \in E'\)為其所有匹配中最大的<br/>
+					滿足\( \sum w(e): e \in E'\)為其所有匹配中最大的<br/>
 					<img src="img/example_weighted_graph.png">
 				</section>
 				<section>
 					<h2>最大權最大匹配</h2>
 					<h5>maximum weight maximum cardinality matching</h5>
 					圖\(G\)的一個 <b>最大權最大匹配</b> \(M=(V',E')\)<br/>
-					滿足\( \sum w(e):\forall e \in E'\)為其所有 <b>"最大匹配"</b> 中最大的<br/>
+					滿足\( \sum w(e): e \in E'\)為其所有 <b>"最大匹配"</b> 中最大的<br/>
 					<img src="img/example_max_edge_weighted_graph.png">
 				</section>
 				<section>
@@ -140,7 +140,7 @@
 				</section>
 				<section>
 					<h2>調整邊的權重</h2>
-					<p>令 \(K = max( \abs{w(e)} ) + 1 \; :\forall e \in E ,\; w(e) ≤ 0 \)</p>
+					<p>令 \(K = max(\{\abs{w(e)}: e \in E ,\; w(e) ≤ 0 \}) + 1 \)</p>
 					若沒有負權邊或零邊則\(K = 0\)
 				</section>
 				<section>
@@ -159,7 +159,7 @@
 				</section>
 				<section>
 					<h2>調整邊的權重</h2>
-					<p>令\(P = max( w(e) )\; :\forall e \in E'\)</p>
+					<p>令\(P = max(\{w(e): e \in E'\})\)</p>
 					把圖\(G'\)中所有的邊其權重\(w(e)\)加上\(P\)<br/>
 					產生一張新圖\(G''=(V,E'')\)
 				</section>
@@ -273,6 +273,8 @@
 						那如果有一個未匹配點，找不到以此點作為端點的增廣路(無法擴充)怎麼辦?
 					</script>
 				</section>
+			</section>
+			<section>
 				<section>
 					<h2>Berge's Theorem</h2>
 					<div class="theorem">
@@ -420,8 +422,8 @@
 				<section>
 					<h2>複雜度</h2>
 					總共做了\(|V|\)次dfs<br/>
-					每次dfs花了\( \ord{max(|V|,|E|)} \)的時間<br/>
-					總複雜度為\( \ord{|V|*max(|V|,|E|)} \)
+					每次dfs花了\( \ord{|V|+|E|} \)的時間<br/>
+					總複雜度為\( \ord{|V|*(|V|+|E|)} \)
 				</section>
 				<section data-markdown>
 					<script type="text/template">
@@ -447,6 +449,7 @@
 				</section>
 				<section data-markdown>
 					<script type="text/template">
+						## 花的概念
 						一般圖跟二分圖最大的差別就是奇環<br/>
 						在交替路上行走的時候，如果遇到奇環<br/>
 						那就把奇環縮成一朵花(blossom)<br/>
@@ -484,8 +487,8 @@
 						由此推得：N個點的圖建立一棵交錯樹，最多縮花N/2次
 					</p>
 					所以找出增廣路的時間複雜度為:<br/>
-					\( \ord{max(|E|,|V|)} + \ord{max(|E|,|V|)}  = \ord{max(|E|,|V|)} \)<br/>
-					BFS的時間加上縮花的時間
+					\( \ord{|E|+|V|} + \ord{|E|+|V|}  = \ord{|E|+|V|} \)<br/>
+					BFS的時間加上縮花總時間
 				</section>
 				<section data-markdown>
 					<script type="text/template">
@@ -704,15 +707,15 @@
 				<section>
 					<h2>複雜度分析</h2>
 					<p>
-						之前有討論過bfs加上縮花的時間為\(\ord{max(|E|,|V|)}\)<br/>
+						之前有討論過bfs加上縮花的時間為\(\ord{|E|+|V|}\)<br/>
 						總共會進行\(|V|\)次bfs
 					</p>
-					故總複雜度為\( \ord{|V|*max(|E|,|V|)} \)
+					故總複雜度為\( \ord{|V|*(|E|+|V|)} \)
 				</section>
 			</section>
 			<section data-markdown>
 				<script type="text/template">
-					# 接下來討論帶權匹配的問題
+					# 最大權匹配算法
 				</script>
 			</section>
 			<section>
@@ -821,9 +824,9 @@
 						vertex labeling<hr/>
 						<p>
 							設交錯樹 \( T = (U_t,V_t) \)<br/>
-							令 \( d = min(z_e) \; : \forall e \in δ(V_t) \)<br/>
-							讓 \(z_u\)-= \(d, \;\)\(z_v\) += \(d\)<br/>
-							\(u\)為樹上偶點，\(v\)為樹上奇點
+							令 \( d = min(\{z_e : e \in δ(V_t)\})\)<br/>
+							設\(u^+\)為樹上偶點，\(v^-\)為樹上奇點<br/>
+							讓 \(z_{u^+}\)-= \(d, \;\)\(z_{v^-}\) += \(d\)
 						</p>
 
 						如此便製造了一條(以上)的等邊，且既有等邊保持不動<br/>
@@ -837,7 +840,7 @@
 					哪些點是偶點
 					<div class="theorem">
 						我們一開始的時候可以設定:<br/>
-						所有\(u\)為偶點，\(z_u=max(w(e)): \; \forall e \in E\)<br/>
+						所有\(u\)為偶點，\(z_u=max(\{w(e): e \in E\})\)<br/>
 						所有\(v\)為奇點，\(z_v=0\)
 					</div>
 				</section>
@@ -859,7 +862,7 @@
 							vertex labeling 額外增加一個限制：<br/>
 							對於所有匹配點\(z_u > 0\)
 						</p>
-						一開始先設所有\(z_u=max(w(e))/2: \; \forall e \in E\)<br/>
+						一開始先設所有\(z_u=max(\{w(e): e \in E\})/2\)<br/>
 						vertex labeling為 0 的點最後將成為未匹配點
 					</div>
 					<div class="fragment">實作也不會太難大家可以試試看</div>
@@ -983,6 +986,11 @@
 			<section>
 				<section>
 					<h1>一般圖最大權匹配</h1>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						# 預備知識
+					</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
@@ -1151,18 +1159,18 @@
 					還要讓\(z_B\)盡量的小
 				</section>
 				<section>
-					<h2>定義符號</h2>
 					<div class="theorem">
-						<div class="label">符號</div>
+						<div class="label">定義符號</div>
 						奇偶點<hr/>
 						<p>
-							設奇點的集合為\(-\)<br/>
-							設偶點的集合為\(+\)<br/>
-							設不再交錯樹上的點的集合為\(\varnothing\)
+							以\(u^-\)來表示\(u\)在交錯樹上為奇點<br/>
+							以\(u^+\)來表示\(u\)在交錯樹上為偶點<br/>
+							以\(u^{\varnothing}\)來表示\(u\)不再任何一棵交錯樹上<br/>
 						</p>
 						之後所有提到的\(B\)預設都是花<br/>
 						並同時代表縮花之後的點<br/>
-						花也可以有奇花偶花之分
+						花也可以有奇花偶花之分<br/>
+						因此也適用\(B^+\)、\(B^-\)、\(B^{\varnothing}\)等符號
 					</div>
 				</section>
 				<section>
@@ -1173,12 +1181,11 @@
 						<p>
 							設目前有\(r\)棵交錯樹 \( T_i = (U_{t_i},V_{t_i}) \; : 1≤i≤r\)<br/>
 							令<br/>
-							\( \quad d1 = min(z_e) \; :\)<br/>
-							\( \quad \qquad \forall e=(u,v),\; u \in T_i ,\; u \in + ,\; v \in \varnothing \)<br/>
-							\( \quad d2 = min(z_e)/2 \; :\)<br/>
-							\( \quad \qquad \forall e=(u,v) u v \in +, \; u \in T_i,\;v \in T_j,\; i≠j\)<br/>
-							\( \quad d3 = min(z_B)/2 \; :\)<br/>
-							\( \quad \qquad \forall B \in T_i,\; B \in -\)
+							\( d1 = min(\{z_e: e=(u^+,v^{\varnothing})\})\)<br/>
+							<p/>
+							\( d2 = min(\{z_e: e=(u^+,v^+), \; u^+ \in T_i,\;v^+ \in T_j,\; i≠j\})/2\)<br/>
+							<p/>
+							\( d3 = min(\{z_{B^-}: B^- \in O\})/2\)
 						</p>
 						<p>
 							注意這裡\(B\)是縮花之後的點，所以可以有奇偶性
@@ -1193,10 +1200,10 @@
 						vertex labeling<hr/>
 						<p>
 							讓<br/>
-							\( \quad z_u\) -= \(d \; : \forall u \in +\)<br/>
-							\( \quad z_v\) += \(d \; : \forall v \in -\)<br/>
-							\( \quad z_B\) += \(2d \; : \forall B \in +\)<br/>
-							\( \quad z_B\) -= \(2d \; : \forall B \in -\)
+							\( \quad z_{u^+}\) -= \(d\)<br/>
+							\( \quad z_{v^-}\) += \(d\)<br/>
+							\( \quad z_{B^+}\) += \(2d\)<br/>
+							\( \quad z_{B^-}\) -= \(2d\)
 						</p>
 						如果出現\(z_B = 0\;(d = d3)\)<br/>
 						為了防止\(z_B < 0\)的情況<br/>
@@ -1232,9 +1239,9 @@
 					<div class="theorem">
 						<p>
 							vertex labeling 額外增加一個限制：<br/>
-							對於所有匹配點\(z_u > 0\)
+							對於所有匹配點\(u\)，\(z_u > 0\)
 						</p>
-						一開始先設所有\(z_u = max(w(e))/2 \; : \forall e \in E\)<br/>
+						一開始先設所有\(z_u = max(\{w(e) : e \in E\})/2\)<br/>
 						vertex labeling為 0 的點最後將成為未匹配點
 					</div>
 					<div class="fragment">這裡使用這種方式實做</div>
@@ -1751,11 +1758,12 @@
 			</section>
 			<section>
 				<div class="theorem">
-					參考資料:<hr/>
-					維基百科<br/>
-					演算法筆記<br/>
-					vfleaking的博客<br/>
-					Blossom V: A new implementation of a minimum cost perfect matching algorithm<br/>
+					<div class="label">參考資料</div>
+					<hr/>
+					維基百科<p/>
+					演算法筆記<p/>
+					vfleaking的博客<p/>
+					Blossom V: A new implementation of a minimum cost perfect matching algorithm<p/>
 					Implementation of \(\ord{n m \; log \; n}\) Weighted Mathings in General Graphs: The Power of Data Strutures
 				</div>
 			</section>
