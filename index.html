@@ -367,32 +367,141 @@
 				<section data-markdown>
 					<script type="text/template">
 						用vector存圖<br/>
-						若G[x]=y，則x和y之間有一條邊<br/>
+						若G[x][i]=y，則x和y之間有一條邊<br/>
 						match為匹配結果，若match[y]=x<br/>
 						則x和y之間有一條匹配邊
 						
 						注意:因為是二分圖，可以把點分成兩個集合<br/>
 						x和y在不同的集合，所以編號可以一樣
 						``` cpp
-						#define MAXN 1000
-						vector<int> G[MAXN];
-						int match[MAXN];
-						int n;//n個點，編號為0 ~ n-1
+						#define MAXN1 505
+						#define MAXN2 505
+						int n1,n2;/*n1個點連向n2個點*/ 
+						int match[MAXN2];/*每個屬於n2的點匹配了哪個點*/
+						vector<int > g[MAXN1];/*圖*/
 						```
 					</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
 						``` cpp
-						bool vis[MAXN];
-						bool dfs(int x){
-							for(size_t i=0;i<G[x].size();++i){
-								int y=g[x][i];
-								if(vis[y])continue;
-								vis[y]=true;
-								if(match[y]==-1||dfs(match[y])){
-									match[y]=x;
+						bool vis[MAXN2];/*是否走訪過*/ 
+						bool dfs(int u){
+							for(size_t i=0;i<g[u].size();++i){
+								int v=g[u][i];
+								if(vis[v])continue;
+								vis[v]=1;
+								if(match[v]==-1||dfs(match[v])){
+									match[v]=u;
+									return 1;
+								}
+							}
+							return 0;
+						}
+						```
+						如果有增廣路就進行擴充並return true<br/>
+						否則return false
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						## 最後是主函數
+						``` cpp
+						inline int max_match(){
+							int ans=0;
+							memset(match,-1,sizeof(int)*n2);
+							for(int i=0;i<n1;++i){
+								memset(vis,0,sizeof(bool)*n2);
+								if(dfs(i))++ans;
+							}
+							return ans;
+						}
+						```
+						ans為最大匹配數量
+					</script>
+				</section>
+				<section>
+					<h2>複雜度</h2>
+					總共做了\(n1\)次dfs<br/>
+					每次dfs花了\( \ord{|E|+n2+n1} \)的時間<br/>
+					總複雜度為\( \ord{n1*(|E|+n2+n1)} \)
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						## 複雜度
+						好像比網路流慢?
+						
+						這個方法好寫，而且可以求字典序最小的最大匹配
+					</script>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>匈牙利算法</h1>
+					多重匹配
+				</section>
+				<section>
+					<div class="prob">
+						這種問題的題目通常是這樣
+						<hr/>
+						給一張圖G有n1個點和n2個點，n1個點之間沒有邊，n2個點之間也沒有邊，但是n1和n2個點之間有m條邊(簡單的來說就是n1個點和n2個點的二分圖啦)，沒有重邊；其中n2個點每個點u都有一個可接受匹配數\(c_u\)。
+						n1的點只能跟一個點匹配，但n2的點在不超過可接受匹配數的情況下，可以跟多個點匹配，求這張圖的最大匹配
+					</div>
+				</section>
+				<section>
+					這依然可以用普通的匈牙利演算法來解決<br/>
+					把可以多重匹配的點拆開，能匹配幾次就拆成幾個點<br/>
+					設n2個點每個點\(u\)都有一個值\(E_u\)表示和\(u\)相鄰的邊數<br/>
+					複雜度\(\ord{n1*(\sum{c_u*E_u}+n1+n2)}\)<br/>
+					但是空間複雜度為\(\ord{\sum{c_u*E_u}+n1+n2}\)
+				</section>
+				<section>
+					可以利用vector存每個點對那些點有匹配<br/>
+					雖然時間複雜度不變<br/>
+					但是效能變快了<br/>
+					空間複雜度也會和一般的匈牙利一樣<br/>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						## 接下來來看code
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						用vector存圖<br/>
+						若G[x][i]=y，則x和y之間有一條邊<br/>
+						match為匹配結果，若match[y]=x<br/>
+						則x和y之間有一條匹配邊<br/>
+						``` cpp
+						#define MAXN1 1005
+						#define MAXN2 505
+						int n1,n2;//n1個點連向n2個點，其中n2個點可以匹配很多邊 
+						vector<int > g[MAXN1];//圖 
+						int c[MAXN2];//每個屬於n2點最多可以接受幾條匹配邊 
+						vector<int > match_list[MAXN2];//每個屬於n2的點匹配了那些點 
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						``` cpp
+						bool vis[MAXN2];//是否走訪過 
+						bool dfs(int u){
+							for(size_t i=0;i<g[u].size();++i){
+								int v=g[u][i];
+								if(vis[v])continue;
+								vis[v]=true;
+								if((int)match_list[v].size()<c[v]){//如果還有匹配空間就直接匹配 
+									match_list[v].push_back(u);
 									return true;
+								}else{
+									for(size_t j=0;j<match_list[v].size();++j){
+										int next_u=match_list[v][j];
+										if(dfs(next_u)){ 
+											match_list[v][j]=u;
+											return true;
+										}
+									}
 								}
 							}
 							return false;
@@ -407,30 +516,17 @@
 						## 最後是主函數
 						``` cpp
 						inline int max_match(){
+							for(int i=0;i<n2;++i)match_list[i].clear();
+							//for(int i=0;i<n2;++i)match_list[i]=vector<int >();
 							int ans=0;
-							memset(match,-1,sizeof(int)*n);
-							for(int x=0;x<n;++x){
-								memset(vis,0,sizeof(bool)*n);
-								if(dfs(x))++ans;
+							for(int u=0;u<n1;++u){
+								memset(vis,0,sizeof(bool)*n2);
+								if(dfs(u))++ans;
 							}
 							return ans;
 						}
 						```
 						ans為最大匹配數量
-					</script>
-				</section>
-				<section>
-					<h2>複雜度</h2>
-					總共做了\(|V|\)次dfs<br/>
-					每次dfs花了\( \ord{|V|+|E|} \)的時間<br/>
-					總複雜度為\( \ord{|V|*(|V|+|E|)} \)
-				</section>
-				<section data-markdown>
-					<script type="text/template">
-						## 複雜度
-						好像比網路流慢?
-						
-						這個方法好寫，而且可以求字典序最小的最大匹配
 					</script>
 				</section>
 			</section>
