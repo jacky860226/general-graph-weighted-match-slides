@@ -44,47 +44,46 @@
 					<h1>甚麼是匹配?</h1>
 				</section>
 				<section>
-					<h2>匹配</h2>
-					一張圖\(G=(V,E)\)，這張圖的一個匹配\(M\)是圖\(G\)的一個子圖，其中每兩條邊都不相鄰（沒有公共頂點）<br/>
-					且所有點的\(degree = 1\)<br/>
+					<h2>匹配(最大邊獨立集)</h2>
+					一張圖$G=(V,E)$，這張圖的一個匹配$M$是邊集$E$的一個子集，其中每兩條邊都不相鄰（沒有公共頂點）<br/>
 					<img src="img/Maximal-matching.svg">
 				</section>
 				<section>
 					<h2>最大匹配</h2>
 					<p>
-						圖\(G\)的一個 <b>最大匹配</b> ，指邊數最多的匹配。
+						圖$G$的一個 <b>最大匹配</b> ，指邊數最多的匹配。
 					</p>
 					<b>最大匹配</b> 可能有不止一個，但 <b>最大匹配</b> 的邊數是確定的，並且不可能超過圖中頂點數的一半。<br/>
 					<img src="img/Maximum-matching-labels.svg">
 				</section>
 				<section>
 					<h2>完美匹配</h2>
-					圖\(G\)的 <b>最大匹配</b> 包含所有原圖的所有點，稱為 <b>完美匹配</b><br/>
-					若\(G\)為完全圖且頂點數為偶數時，必然存在 <b>完美匹配</b>
+					圖$G$的 <b>最大匹配</b> 包含所有原圖的所有點，稱為 <b>完美匹配</b><br/>
+					若$G$為完全圖且頂點數為偶數時，必然存在 <b>完美匹配</b>
 				</section>
 			<section>
 					<h2>最大權匹配</h2>
 					<h5>maximum weight matching</h5>
 					<p>
-						一張圖\(G=(V,E)\)<br>
-						\(\forall e \in E\)存在一個函數\(w(e)\)表示\(e\)的權重
+						一張圖$G=(V,E)$<br>
+						$\forall e \in E$存在一個函數$w(e)$表示$e$的權重
 					</p>
-					圖\(G\)的一個 <b>最大權匹配</b> \(M=(V',E')\)是圖\(G\)的一個子圖<br/>
-					滿足\( \sum w(e): e \in E'\)為其所有匹配中最大的<br/>
+					圖$G$的一個 <b>最大權匹配</b> $M=(V',E')$是圖$G$的一個子圖<br/>
+					滿足$ \sum w(e): e \in E'$為其所有匹配中最大的<br/>
 					<img src="img/example_weighted_graph.png">
 				</section>
 				<section>
 					<h2>最大權最大匹配</h2>
 					<h5>maximum weight maximum cardinality matching</h5>
-					圖\(G\)的一個 <b>最大權最大匹配</b> \(M=(V',E')\)<br/>
-					滿足\( \sum w(e): e \in E'\)為其所有 <b>"最大匹配"</b> 中最大的<br/>
+					圖$G$的一個 <b>最大權最大匹配</b> $M=(V',E')$<br/>
+					滿足$ \sum w(e): e \in E'$為其所有 <b>"最大匹配"</b> 中最大的<br/>
 					<img src="img/example_max_edge_weighted_graph.png">
 				</section>
 				<section>
 					<h2>最大權完美匹配</h2>
 					<h5>maximum weight maximum perfect matching</h5>
-					若圖\(G\)存在完美匹配<br/>
-					此時圖\(G\)的 <b>最大權最大匹配</b> 稱為 <b>最大權完美匹配</b>
+					若圖$G$存在完美匹配<br/>
+					此時圖$G$的 <b>最大權最大匹配</b> 稱為 <b>最大權完美匹配</b>
 				</section>
 			</section>
 			<section>
@@ -101,26 +100,26 @@
 				</section>
 				<section>
 					<p>
-						<b>最大權最大匹配</b> 允許負權邊\((w(e)<0)\)<br/>
+						<b>最大權最大匹配</b> 允許負權邊$(w(e)<0)$<br/>
 						但是 <b>最大權匹配</b> 不會有負權邊
 					</p>
-					若一張圖\(G\)其所有的邊皆為負權<br/>
-					則其 <b>最大權匹配</b> \(M=\varnothing\)
+					若一張圖$G$其所有的邊皆為負權<br/>
+					則其 <b>最大權匹配</b> $M=\varnothing$
 				</section>
 				<section>
 					<h2>調整邊的權重</h2>
-					先將圖\(G\)的所有負權邊其權重\(w(e)\)設為\(0\)<br/>
+					先將圖$G$的所有負權邊其權重$w(e)$設為$0$<br/>
 					在進行接下來的步驟
 				</section>
 				
 				<section>
 					<h2>完全圖性質</h2>
-					<p>在\(G\)為完全圖且沒有負權邊時</p>
+					<p>在$G$為完全圖且沒有負權邊時</p>
 					<b>最大權最大匹配</b> = <b>最大權匹配</b>
 				</section>
 				<section>
-					所以把\(G\)補成完全圖，補上的邊其權重為\(0\)<br/>
-					計算 <b>最大權最大匹配</b> 後再把權重為\(0\)的邊去除即可<br/>
+					所以把$G$補成完全圖，補上的邊其權重為$0$<br/>
+					計算 <b>最大權最大匹配</b> 後再把權重為$0$的邊去除即可<br/>
 					<img src="img/example_max_edge_weighted_graph-change.png">
 				</section>
 			</section>
@@ -135,36 +134,36 @@
 				</section>
 				<section>
 					<b>最大權匹配</b> 不會有負權邊<br/>
-					且零邊\( (w(e)=0) \)可選可不選<br/>
+					且零邊$ (w(e)=0) $可選可不選<br/>
 					但是 <b>最大權最大匹配</b> 允許負權邊和零邊
 				</section>
 				<section>
 					<h2>調整邊的權重</h2>
-					<p>令 \(K = max(\{\abs{w(e)}: e \in E ,\; w(e) ≤ 0 \}) + 1 \)</p>
-					若沒有負權邊或零邊則\(K = 0\)
+					<p>令 $K = max(\{\abs{w(e)}: e \in E ,\; w(e) ≤ 0 \}) + 1 $</p>
+					若沒有負權邊或零邊則$K = 0$
 				</section>
 				<section>
 					<h2>調整邊的權重</h2>
-					<p>把圖\(G\)中所有的邊其權重\(w(e)\)加上\(K\)產生一張新圖\(G'=(V,E')\)</p>
-					此時的新圖\(G'\)不存在負權邊和零邊
+					<p>把圖$G$中所有的邊其權重$w(e)$加上$K$產生一張新圖$G'=(V,E')$</p>
+					此時的新圖$G'$不存在負權邊和零邊
 				</section>
 				<section>
 					<h2>問題來了</h2>
 					<p>
 						<b>最大權最大匹配</b> 不一定等於 <b>最大權匹配</b><br/>
-						但是把所有邊的邊權加上一個超大數字\(P\)的話<br/>
+						但是把所有邊的邊權加上一個超大數字$P$的話<br/>
 						<b>最大權匹配</b> 的結果就是 <b>最大權最大匹配</b>
 					</p>
-					但是\(P\)取要多大?
+					但是$P$取要多大?
 				</section>
 				<section>
 					<h2>調整邊的權重</h2>
-					<p>令\(P = max(\{w(e): e \in E'\})\)</p>
-					把圖\(G'\)中所有的邊其權重\(w(e)\)加上\(P\)<br/>
-					產生一張新圖\(G''=(V,E'')\)
+					<p>令$P = \sum{w(e): e \in E'}$</p>
+					把圖$G'$中所有的邊其權重$w(e)$加上$P$<br/>
+					產生一張新圖$G''=(V,E'')$
 				</section>
 				<section>
-					此時對圖\(G''\)進行 <b>最大權匹配</b><br/>
+					此時對圖$G''$進行 <b>最大權匹配</b><br/>
 					其結果可以對應原圖的 <b>最大權最大匹配</b><br/>
 					<img src="img/example_max_weighted_graph-change.png">
 				</section>
@@ -182,7 +181,7 @@
 				<section>
 						<h2>flow</h2>
 						最簡單的方法是用網路流，所以就不多講了<br/>
-						Dinic在這種特殊圖上複雜度為\( \ord{|E|\sqrt{|V|}} \)<br/>
+						Dinic在這種特殊圖上複雜度為$ \ord{|E|\sqrt{|V|}} $<br/>
 						<img src="img/flow-matching.png">
 				</section>
 				<section data-markdown>
@@ -236,7 +235,7 @@
 						<div class="label">交錯樹</div>
 						alternating tree<hr/>
 						在進行DFS或BFS尋找增廣路的過程產生的樹稱為交錯樹<br/>
-						設 \(T=(V_t,E_t)\)為在尋找增廣路時產生的交錯樹<br/>
+						設 $T=(V_t,E_t)$為在尋找增廣路時產生的交錯樹<br/>
 						定義:<br/>
 						偶點為樹上深度為偶數的點<br/>
 						奇點為樹上深度為奇數的點
@@ -289,13 +288,13 @@
 					<div class="theorem">
 						<div class="label">定義</div>
 						對稱差集<hr/>
-						兩個集合 \(A\) 和 \(B\) 的「對稱差集」定義為<br/>
-						\(A⊕B = (A∪B) - (A∩B)\)
+						兩個集合 $A$ 和 $B$ 的「對稱差集」定義為<br/>
+						$A⊕B = (A∪B) - (A∩B)$
 					</div>
 				</section>
 				<section>
-					<p>同一張圖上的兩種匹配\(M\)和\(M^*\)也可以計算對稱差集</p>
-					\(M⊕M^*\)總共會產生六大類 connected component
+					<p>同一張圖上的兩種匹配$M$和$M^*$也可以計算對稱差集</p>
+					$M⊕M^*$總共會產生六大類 connected component
 				</section>
 				<section data-markdown>
 					<script type="text/template">
@@ -303,26 +302,26 @@
 					</script>
 				</section>
 				<section>
-					設當下的匹配\(M\)找不到以未匹配點\(p\)作為端點的擴充路徑<br/>
-					並令\(M^*\)是該圖的其中一個最大匹配。
+					設當下的匹配$M$找不到以未匹配點$p$作為端點的擴充路徑<br/>
+					並令$M^*$是該圖的其中一個最大匹配。
 				</section>
 				<section>
-					<h2>如果\(p\)不在\(M^*\)上</h2>
+					<h2>如果$p$不在$M^*$上</h2>
 					<div class="theorem">
 						<div class="label">證明</div>
 						Berge's Theorem<hr/>
-						刪除此點完全不會對\(M\)和\(M^*\)有任何影響，定理成立。
+						$p$不在$M^*$上定理成立。
 					</div>
 				</section>
 				<section>
-					<h2>如果\(p\)在\(M^*\)上</h2>
+					<h2>如果$p$在$M^*$上</h2>
 					<div class="theorem">
 						<div class="label">證明</div>
 						Berge's Theorem<hr/>
-						1. \(p\)對於M來說是未匹配點。理所當然\(p\)不在\(M\)上。<br/>
-						2. 考慮\(M⊕M^*\)的六種情形。\(p\)不在\(M\)上，且\(p\)在\(M^*\)上，所以只有d或e符合條件。<br/>
-						3. \(M\)找不到以\(p\)作為端點的擴充路徑，所以d不符合條件，只有e符合條件。<br/>
-						4. 對於\(M^*\)來說，只要照著e顛倒匹配邊和未匹配邊，
+						1. $p$對於M來說是未匹配點。理所當然$p$不在$M$上。<br/>
+						2. 考慮$M⊕M^*$的六種情形。$p$不在$M$上，且$p$在$M^*$上，所以只有d或e符合條件。<br/>
+						3. $M$找不到以$p$作為端點的擴充路徑，所以d不符合條件，只有e符合條件。<br/>
+						4. 對於$M^*$來說，只要照著e顛倒匹配邊和未匹配邊，
 						就可以製造出另一個不會包含p的最大匹配，
 						成為1.的情形，定理還是成立。
 					</div>
@@ -422,9 +421,9 @@
 				</section>
 				<section>
 					<h2>複雜度</h2>
-					總共做了\(n1\)次dfs<br/>
-					每次dfs花了\( \ord{|E|+n2+n1} \)的時間<br/>
-					總複雜度為\( \ord{n1*(|E|+n2+n1)} \)
+					總共做了$n1$次dfs<br/>
+					每次dfs花了$ \ord{|E|+n2+n1} $的時間<br/>
+					總複雜度為$ \ord{n1*(|E|+n2+n1)} $
 				</section>
 				<section data-markdown>
 					<script type="text/template">
@@ -444,16 +443,16 @@
 					<div class="prob">
 						這種問題的題目通常是這樣
 						<hr/>
-						給一張圖G有n1個點和n2個點，n1個點之間沒有邊，n2個點之間也沒有邊，但是n1和n2個點之間有m條邊(簡單的來說就是n1個點和n2個點的二分圖啦)，沒有重邊；其中n2個點每個點u都有一個可接受匹配數\(c_u\)。
+						給一張圖G有n1個點和n2個點，n1個點之間沒有邊，n2個點之間也沒有邊，但是n1和n2個點之間有m條邊(簡單的來說就是n1個點和n2個點的二分圖啦)，沒有重邊；其中n2個點每個點u都有一個可接受匹配數$c_u$。
 						n1的點只能跟一個點匹配，但n2的點在不超過可接受匹配數的情況下，可以跟多個點匹配，求這張圖的最大匹配
 					</div>
 				</section>
 				<section>
 					這依然可以用普通的匈牙利演算法來解決<br/>
 					把可以多重匹配的點拆開，能匹配幾次就拆成幾個點<br/>
-					設n2個點每個點\(u\)都有一個值\(E_u\)表示和\(u\)相鄰的邊數<br/>
-					複雜度\(\ord{n1*(\sum{c_u*E_u}+n1+n2)}\)<br/>
-					但是空間複雜度為\(\ord{\sum{c_u*E_u}+n1+n2}\)
+					設n2個點每個點$u$都有一個值$E_u$表示和$u$相鄰的邊數<br/>
+					複雜度$\ord{n1*(\sum{c_u*E_u}+n1+n2)}$<br/>
+					但是空間複雜度為$\ord{\sum{c_u*E_u}+n1+n2}$
 				</section>
 				<section>
 					可以利用vector存每個點對那些點有匹配<br/>
@@ -583,7 +582,7 @@
 						由此推得：N個點的圖建立一棵交錯樹，最多縮花N/2次
 					</p>
 					所以找出增廣路的時間複雜度為:<br/>
-					\( \ord{|E|+|V|} + \ord{|E|+|V|}  = \ord{|E|+|V|} \)<br/>
+					$ \ord{|E|+|V|} + \ord{|E|+|V|}  = \ord{|E|+|V|} $<br/>
 					BFS的時間加上縮花總時間
 				</section>
 				<section data-markdown>
@@ -741,7 +740,7 @@
 				<section data-markdown>
 					<script type="text/template">
 						``` cpp
-						inline bool agument(int u,int v){
+						inline bool augment(int u,int v){
 							//擴充增廣路
 							for(int lst;u;v=lst,u=pa[v]){
 								lst=match[u];
@@ -768,7 +767,7 @@
 										pa[v]=u;
 										S[v]=1;
 										if(!match[v]){//有增廣路直接擴充 
-											agument(u,v);
+											augment(u,v);
 											return true;
 										}
 										qpush(match[v]);
@@ -803,10 +802,10 @@
 				<section>
 					<h2>複雜度分析</h2>
 					<p>
-						之前有討論過bfs加上縮花的時間為\(\ord{|E|+|V|}\)<br/>
-						總共會進行\(|V|\)次bfs
+						之前有討論過bfs加上縮花的時間為$\ord{|E|+|V|}$<br/>
+						總共會進行$|V|$次bfs
 					</p>
-					故總複雜度為\( \ord{|V|*(|E|+|V|)} \)
+					故總複雜度為$ \ord{|V|*(|E|+|V|)} $
 				</section>
 			</section>
 			<section data-markdown>
@@ -836,23 +835,23 @@
 				</section>
 				<section>
 					<h2>定義函數</h2>
-					設\(S ⊆ V\)<br/>
-					\(δ(S) = \{ (u, v) ∈ E \; : \; u ∈ S, \; v ∈ V − S \} \)<br/>
-					對單一點 \(v ∈ V \) ，我們定義 \(δ(v) = δ(\{v\}) \)<br/>
+					設$S ⊆ V$<br/>
+					$δ(S) = \{ (u, v) ∈ E \; : \; u ∈ S, \; v ∈ V − S \} $<br/>
+					對單一點 $v ∈ V $ ，我們定義 $δ(v) = δ(\{v\}) $<br/>
 				</section>
 				<section>
 					<h2>二分圖最大權完美匹配的線性規劃</h2>
 					<div class="prob">
 						<div class="label">原始問題</div>
 						PRIMAL<hr/>
-						<p>\( max \; \sum_{e∈E} \; w(e)x_e \)</p>
+						<p>$ max \; \sum_{e∈E} \; w(e)x_e $</p>
 						<p>
 							限制:<br/>
-							\(x_e ≥ 0 \; : \forall e∈E \)<br/>
-							\( x(δ(u)) = 1 \; : \forall u∈V \)
+							$x_e ≥ 0 \; : \forall e∈E $<br/>
+							$ x(δ(u)) = 1 \; : \forall u∈V $
 						</p>
 						定義:<br/>
-						\(x(S) = \sum_{e∈S} \; x_e\)
+						$x(S) = \sum_{e∈S} \; x_e$
 					</div>
 					<div class="fragment">接下來進行對偶問題的轉換</div>					
 				</section>
@@ -861,40 +860,40 @@
 					<div class="prob">
 						<div class="label">對偶問題</div>
 						DUAL<hr/>
-						<p>\( min \; \sum_{u \in V} \; z_u \)</p>
+						<p>$ min \; \sum_{u \in V} \; z_u $</p>
 						<p>
 							限制:<br/>
-							\(z_e ≥ 0 \; : \forall e∈E \)
+							$z_e ≥ 0 \; : \forall e∈E $
 						</p>
-						設 \(e=(u,v)\)，這裡\(z_e = z_u + z_v - w(e)\)
+						設 $e=(u,v)$，這裡$z_e = z_u + z_v - w(e)$
 					</div>
-					<div class="fragment">所有條件都滿足時\(\sum_{u∈V} \; z_u\)就是最大權匹配的權重和</div>
+					<div class="fragment">所有條件都滿足時$\sum_{u∈V} \; z_u$就是最大權匹配的權重和</div>
 					<div class="fragment">原本求最大值問題就變成求最小值了!</div>
 				</section>
 				<section>
 					<h2>二分圖最大權完美匹配的對偶問題</h2>
 					<p>
-						在原始問題中，我們發現只要在\(x_e \in \{0,1\} \; : \forall e \in E \)時<br/>
-						\(x_e = 1\)的邊就是匹配邊，\(x_e = 0\)的邊就是非匹配邊
+						在原始問題中，我們發現只要在$x_e \in \{0,1\} \; : \forall e \in E $時<br/>
+						$x_e = 1$的邊就是匹配邊，$x_e = 0$的邊就是非匹配邊
 					</p>
-					不過線性方程的解中，\(x_e\)不一定是整數<br/>
-					但是一定存在\(x_e \in \{0,1\}\)的整數解<br/>
+					不過線性方程的解中，$x_e$不一定是整數<br/>
+					但是一定存在$x_e \in \{0,1\}$的整數解<br/>
 					所以想辦法讓他產成整數解即可
 				</section>
 				<section>
 					<h2>二分圖最大權完美匹配的對偶問題</h2>
 					<p>
-						我們稱\(z_u\)為u的vertex labeling<br/>
-						稱\(z_e=0\)的邊為等邊(Equality Edge)
+						我們稱$z_u$為u的vertex labeling<br/>
+						稱$z_e=0$的邊為等邊(Equality Edge)
 					</p>
 					只要在最大權完美匹配的時候<br/>
 					讓所有匹配邊都是等邊<br/>
-					這樣就可以滿足\(x_e \in \{0,1\}\)的條件了
+					這樣就可以滿足$x_e \in \{0,1\}$的條件了
 				</section>
 				<section>
 					<h2>寫成數學符號長這樣</h2>
 					<div class="theorem">
-						\(x_e>0 \; \longrightarrow \; z_e=0 \qquad \forall e \in E\)
+						$x_e>0 \; \longrightarrow \; z_e=0 \qquad \forall e \in E$
 					</div>
 				</section>
 				<section>
@@ -919,14 +918,14 @@
 						<div class="label">調整</div>
 						vertex labeling<hr/>
 						<p>
-							設交錯樹 \( T = (U_t,V_t) \)<br/>
-							令 \( d = min(\{z_e : e \in δ(V_t)\})\)<br/>
-							設\(u^+\)為樹上偶點，\(v^-\)為樹上奇點<br/>
-							讓 \(z_{u^+}\)-= \(d, \;\)\(z_{v^-}\) += \(d\)
+							設交錯樹 $ T = (U_t,V_t) $<br/>
+							令 $ d = min(\{z_e : e \in δ(V_t)\})$<br/>
+							設$u^+$為樹上偶點，$v^-$為樹上奇點<br/>
+							讓 $z_{u^+}$-= $d, \;$$z_{v^-}$ += $d$
 						</p>
 
 						如此便製造了一條(以上)的等邊，且既有等邊保持不動<br/>
-						並維持了\(z_e ≥ 0 \; : \forall e∈E \)的性質<br/>
+						並維持了$z_e ≥ 0 \; : \forall e∈E $的性質<br/>
 						接著就繼續找增廣路!
 					</div>
 				</section>
@@ -936,8 +935,8 @@
 					哪些點是偶點
 					<div class="theorem">
 						我們一開始的時候可以設定:<br/>
-						所有\(u\)為偶點，\(z_u=max(\{w(e): e \in E\})\)<br/>
-						所有\(v\)為奇點，\(z_v=0\)
+						所有$u$為偶點，$z_u=max(\{w(e): e \in E\})$<br/>
+						所有$v$為奇點，$z_v=0$
 					</div>
 				</section>
 				<section data-markdown>
@@ -956,9 +955,9 @@
 					<div class="theorem">
 						<p>
 							vertex labeling 額外增加一個限制：<br/>
-							對於所有匹配點\(z_u > 0\)
+							對於所有匹配點$z_u > 0$
 						</p>
-						一開始先設所有\(z_u=max(\{w(e): e \in E\})/2\)<br/>
+						一開始先設所有$z_u=max(\{w(e): e \in E\})/2$<br/>
 						vertex labeling為 0 的點最後將成為未匹配點
 					</div>
 					<div class="fragment">實作也不會太難大家可以試試看</div>
@@ -1058,14 +1057,14 @@
 					<div class="theorem">
 						<div class="label">複雜度</div>
 						KM演算法<hr/>
-						<p>dfs花\(\ord{|V|^2}\)的時間</p>
+						<p>dfs花$\ord{|V|^2}$的時間</p>
 						<p>
-							因為交錯樹最多有\(|V|-1\)條邊<br/>
-							故主程式裡的無限迴圈最多執行\(\ord{|V|}\)次<br/>
+							因為交錯樹最多有$|V|-1$條邊<br/>
+							故主程式裡的無限迴圈最多執行$\ord{|V|}$次<br/>
 						</p>
-						<p>總共有\(|V|\)個點需要被增廣</p>
+						<p>總共有$|V|$個點需要被增廣</p>
 						總複雜度為:<br/>
-						\(\ord{|V|*|V|*|V|^2}=\ord{|V|^4}\)
+						$\ord{|V|*|V|*|V|^2}=\ord{|V|^4}$
 					</div>
 				</section>
 				<section>
@@ -1073,8 +1072,8 @@
 					<div class="theorem">
 						<div class="label">複雜度</div>
 						KM演算法<hr/>
-						其實這算法複雜度可以到\(\ord{|V|^3}\)<br/>
-						\(\implies\)每次增加新的等邊後不需要重新DFS<br/>
+						其實這算法複雜度可以到$\ord{|V|^3}$<br/>
+						$\implies$每次增加新的等邊後不需要重新DFS<br/>
 						<div class="fragment">怎麼實作具體就留給你們吧</div>
 					</div>
 				</section>
@@ -1103,9 +1102,9 @@
 					<div class="theorem">
 						<div class="label">定義</div>
 						<hr/>
-						設\(S⊆V\)<br/>
-						\( \gamma(S)= \{(u,v) \in E \; : \; u \in S, \; v \in S\} \)<br/>
-						\( O = \{ B⊆V \; : \; |B|是奇數且|B|≥3 \} \)
+						設$S⊆V$<br/>
+						$ \gamma(S)= \{(u,v) \in E \; : \; u \in S, \; v \in S\} $<br/>
+						$ O = \{ B⊆V \; : \; |B|是奇數且|B|≥3 \} $
 					</div>
 				</section>
 				<section>
@@ -1113,11 +1112,11 @@
 					<div class="prob">
 						<div class="label">原始問題</div>
 						PRIMAL<hr/>
-						<p>\( max \; \sum_{e∈E} \; w(e)x_e \)</p>
+						<p>$ max \; \sum_{e∈E} \; w(e)x_e $</p>
 						限制:<br/>
-						\( x(δ(u)) = 1 \; : \forall u∈V \)<br/>
-						\(x(\gamma(B))≤\floor{\frac{|B|}{2}} \; : \forall B \in O\)<br/>
-						\(x_e ≥ 0 \; : \forall e∈E \)
+						$ x(δ(u)) = 1 \; : \forall u∈V $<br/>
+						$x(\gamma(B))≤\floor{\frac{|B|}{2}} \; : \forall B \in O$<br/>
+						$x_e ≥ 0 \; : \forall e∈E $
 					</div>
 				</section>
 				<section>
@@ -1125,48 +1124,48 @@
 					<div class="prob">
 						<div class="label">對偶問題</div>
 						DUAL<hr/>
-						<p>\( min \; \sum_{u \in V} \; z_u +  \sum_{B \in O} \; \floor{\frac{|B|}{2}} z_B \)</p>
+						<p>$ min \; \sum_{u \in V} \; z_u +  \sum_{B \in O} \; \floor{\frac{|B|}{2}} z_B $</p>
 						<p>
 							限制:<br/>
-							\(z_B ≥ 0 \; : \forall B∈O \)<br/>
-							\(z_e ≥ 0 \; : \forall e∈E \)
+							$z_B ≥ 0 \; : \forall B∈O $<br/>
+							$z_e ≥ 0 \; : \forall e∈E $
 						</p>
-						設 \(e=(u,v)\)，這裡$$z_e = z_u + z_v - w(e)+\sum_{\begin{subarray}{l} B \in O \\ u,v \in \gamma(B) \end{subarray}} z_B $$<br/>
+						設 $e=(u,v)$，這裡$$z_e = z_u + z_v - w(e)+\sum_{\begin{subarray}{l} B \in O \\ u,v \in \gamma(B) \end{subarray}} z_B $$<br/>
 					</div>
 				</section>
 				<section>
 					<p>
 						和二分圖一樣<br/>
-						我們必須滿足\(x_e \in \{0,1\} \; : \forall e∈E \)<br/>
+						我們必須滿足$x_e \in \{0,1\} \; : \forall e∈E $<br/>
 						因此必須在最大權完美匹配的時候<br/>
 						讓所有匹配邊都是等邊
 					</p>
-					這裡等邊的定義為\(z_e=0\)的邊<br/>
-					和二分圖不同的是，多了\(z_B\)要處理
+					這裡等邊的定義為$z_e=0$的邊<br/>
+					和二分圖不同的是，多了$z_B$要處理
 				</section>
 				<section>
-					<h2>\(z_B\)什麼時候會大於0?</h2>
+					<h2>$z_B$什麼時候會大於0?</h2>
 					從方程式可以看出<br/>
-					盡量讓\(z_B=0\)是最好的做法<br/>
-					但在不得已的時候還是要讓\(z_B>0\)<br/>
+					盡量讓$z_B=0$是最好的做法<br/>
+					但在不得已的時候還是要讓$z_B>0$<br/>
 				</section>
 				<section>
-					<h2>\(z_B\)什麼時候會大於0?</h2>
+					<h2>$z_B$什麼時候會大於0?</h2>
 					<p>
-						在\(x(\gamma(B))=\floor{\frac{|B|}{2}}\)且\(x(δ(B)) = 1\)時<br/>
-						讓\(z_B>0\)就可以了
+						在$x(\gamma(B))=\floor{\frac{|B|}{2}}$且$x(δ(B)) = 1$時<br/>
+						讓$z_B>0$就可以了
 					</p>
 					因為除了在這種情況下<br/>
-					\(z_B>0\)是沒有意義的
+					$z_B>0$是沒有意義的
 				</section>
 				<section>
 					<h2>所以可以有以下的對應關係</h2>
 					<div class="theorem">
-						\(x_e>0 \; \longrightarrow \; z_e=0 \qquad \forall e \in E\)<br/>
-						\(z_B>0 \; \longrightarrow \; x(\gamma(B))=\floor{\frac{|B|}{2}}, \; x(δ(B)) = 1 \qquad \forall B \in O\)
+						$x_e>0 \; \longrightarrow \; z_e=0 \qquad \forall e \in E$<br/>
+						$z_B>0 \; \longrightarrow \; x(\gamma(B))=\floor{\frac{|B|}{2}}, \; x(δ(B)) = 1 \qquad \forall B \in O$
 					</div>
 					<div class="fragment">
-						可以發現在\(z_B>0\)時，\(B\)就會是一朵花
+						可以發現在$z_B>0$時，$B$就會是一朵花
 					</div>
 				</section>
 				<section>
@@ -1184,7 +1183,7 @@
 					<h2>花</h2>
 					<p>
 						遇到花的時候，要把它縮成一個偶點<br/>
-						把花中所有點都設為偶點，並讓他的\(z_B=0\)
+						把花中所有點都設為偶點，並讓他的$z_B=0$
 					</p>
 					由於縮花後會把花保存起來<br/>
 					直到滿足某些條件才會拆開<br/>
@@ -1252,21 +1251,21 @@
 					<h2>調整 vertex labeling</h2>
 					vertex labeling 仍要維持大於等於的性質<br/>
 					而且既有的「等邊」不能被改變<br/>
-					還要讓\(z_B\)盡量的小
+					還要讓$z_B$盡量的小
 				</section>
 				<section>
 					<div class="theorem">
 						<div class="label">定義符號</div>
 						奇偶點<hr/>
 						<p>
-							以\(u^-\)來表示\(u\)在交錯樹上為奇點<br/>
-							以\(u^+\)來表示\(u\)在交錯樹上為偶點<br/>
-							以\(u^{\varnothing}\)來表示\(u\)不再任何一棵交錯樹上<br/>
+							以$u^-$來表示$u$在交錯樹上為奇點<br/>
+							以$u^+$來表示$u$在交錯樹上為偶點<br/>
+							以$u^{\varnothing}$來表示$u$不再任何一棵交錯樹上<br/>
 						</p>
-						之後所有提到的\(B\)預設都是花<br/>
+						之後所有提到的$B$預設都是花<br/>
 						並同時代表縮花之後的點<br/>
 						花也可以有奇花偶花之分<br/>
-						因此也適用\(B^+\)、\(B^-\)、\(B^{\varnothing}\)等符號
+						因此也適用$B^+$、$B^-$、$B^{\varnothing}$等符號
 					</div>
 				</section>
 				<section>
@@ -1275,18 +1274,18 @@
 						<div class="label">調整</div>
 						vertex labeling<hr/>
 						<p>
-							設目前有\(r\)棵交錯樹 \( T_i = (U_{t_i},V_{t_i}) \; : 1≤i≤r\)<br/>
+							設目前有$r$棵交錯樹 $ T_i = (U_{t_i},V_{t_i}) \; : 1≤i≤r$<br/>
 							令<br/>
-							\( d1 = min(\{z_e: e=(u^+,v^{\varnothing})\})\)<br/>
+							$ d1 = min(\{z_e: e=(u^+,v^{\varnothing})\})$<br/>
 							<p/>
-							\( d2 = min(\{z_e: e=(u^+,v^+), \; u^+ \in T_i,\;v^+ \in T_j,\; i≠j\})/2\)<br/>
+							$ d2 = min(\{z_e: e=(u^+,v^+), \; u^+ \in T_i,\;v^+ \in T_j,\; i≠j\})/2$<br/>
 							<p/>
-							\( d3 = min(\{z_{B^-}: B^- \in O\})/2\)
+							$ d3 = min(\{z_{B^-}: B^- \in O\})/2$
 						</p>
 						<p>
-							注意這裡\(B\)是縮花之後的點，所以可以有奇偶性
+							注意這裡$B$是縮花之後的點，所以可以有奇偶性
 						</p>
-						設\(d=min(d1,d2,d3)\)<br/>
+						設$d=min(d1,d2,d3)$<br/>
 					</div>
 				</section>
 				<section>
@@ -1296,16 +1295,16 @@
 						vertex labeling<hr/>
 						<p>
 							讓<br/>
-							\( \quad z_{u^+}\) -= \(d\)<br/>
-							\( \quad z_{v^-}\) += \(d\)<br/>
-							\( \quad z_{B^+}\) += \(2d\)<br/>
-							\( \quad z_{B^-}\) -= \(2d\)
+							$ \quad z_{u^+}$ -= $d$<br/>
+							$ \quad z_{v^-}$ += $d$<br/>
+							$ \quad z_{B^+}$ += $2d$<br/>
+							$ \quad z_{B^-}$ -= $2d$
 						</p>
-						如果出現\(z_B = 0\;(d = d3)\)<br/>
-						為了防止\(z_B < 0\)的情況<br/>
+						如果出現$z_B = 0\;(d = d3)$<br/>
+						為了防止$z_B < 0$的情況<br/>
 						所以要把這朵花拆了(EXPAND)<br/>
 						拆花後只留下花裡的交替路徑<br/>
-						並把花裡不在交替路徑上的點設為未走訪\((\varnothing)\)
+						並把花裡不在交替路徑上的點設為未走訪$(\varnothing)$
 					</div>
 				</section>
 				<section>
@@ -1318,8 +1317,8 @@
 						<div class="label">調整</div>
 						vertex labeling<hr/>
 						如此便製造了一條(以上)的等邊，既有等邊保持不動<br/>
-						並維持了\(z_e ≥ 0 \; : \forall e∈E \)的性質<br/>
-						且最低限度增加了\(z_B\)<br/>
+						並維持了$z_e ≥ 0 \; : \forall e∈E $的性質<br/>
+						且最低限度增加了$z_B$<br/>
 						可以繼續找增廣路了!
 					</div>
 				</section>
@@ -1335,9 +1334,9 @@
 					<div class="theorem">
 						<p>
 							vertex labeling 額外增加一個限制：<br/>
-							對於所有匹配點\(u\)，\(z_u > 0\)
+							對於所有匹配點$u$，$z_u > 0$
 						</p>
-						一開始先設所有\(z_u = max(\{w(e) : e \in E\})/2\)<br/>
+						一開始先設所有$z_u = max(\{w(e) : e \in E\})/2$<br/>
 						vertex labeling為 0 的點最後將成為未匹配點
 					</div>
 					<div class="fragment">這裡使用這種方式實做</div>
@@ -1350,7 +1349,7 @@
 					<h4>Edmonds' Maximum Weight Matching Algorithm</h4>
 				</section>
 				<section>
-					這裡為了方便實作所以用邊權乘二來計算\(z_e\)的值<br/>
+					這裡為了方便實作所以用邊權乘二來計算$z_e$的值<br/>
 					這樣就不會出現浮點數誤差了
 				</section>
 				<section data-markdown>
@@ -1838,17 +1837,17 @@
 					<h2>複雜度分析</h2>
 					<div class="theorem">
 						每朵花在一次BFS中只會被縮花或是拆花一次<br/>
-						每次縮花拆花要\(\ord{\abs{V}}\)的時間<br/>
-						最多總共有\(\ord{\abs{V}}\)朵花，故花的處理花費\(\ord{\abs{V}^2}\)<br/>
-						而BFS花費\(\ord{\abs{V}+\abs{E}}\)<br/>
-						因此找增廣路花費\(\ord{\abs{V}+\abs{E}}+\ord{\abs{V}^2}=\ord{\abs{V}^2}\)
+						每次縮花拆花要$\ord{\abs{V}}$的時間<br/>
+						最多總共有$\ord{\abs{V}}$朵花，故花的處理花費$\ord{\abs{V}^2}$<br/>
+						而BFS花費$\ord{\abs{V}+\abs{E}}$<br/>
+						因此找增廣路花費$\ord{\abs{V}+\abs{E}}+\ord{\abs{V}^2}=\ord{\abs{V}^2}$
 					</div>
 				</section>
 				<section>
 					<h2>複雜度分析</h2>
 					<div class="theorem">
-						最多做\(\abs{V}\)次BFS<br/>
-						故總時間複雜度為\(\ord{\abs{V}^3}\)
+						最多做$\abs{V}$次BFS<br/>
+						故總時間複雜度為$\ord{\abs{V}^3}$
 					</div>
 				</section>
 			</section>
@@ -1907,11 +1906,11 @@
 					演算法筆記<p/>
 					vfleaking的博客<p/>
 					Blossom V: A new implementation of a minimum cost perfect matching algorithm<p/>
-					Implementation of \(\ord{n m \; log \; n}\) Weighted Mathings in General Graphs: The Power of Data Strutures
+					Implementation of $\ord{n m \; log \; n}$ Weighted Mathings in General Graphs: The Power of Data Strutures
 				</div>
 			</section>
+			<!--結束了-->
 		</div>
-		<!--結束了-->
 	</div>
 	<script src="js/jquery.js"></script>
 	<script src="reveal/lib/js/head.min.js"></script>
